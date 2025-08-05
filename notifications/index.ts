@@ -1,18 +1,15 @@
-import * as z from 'zod';
-import { followerAcceptedSchema } from './schemas/follower-accepted.schema';
-import { followerRequestSchema } from './schemas/follower-request.schema';
-import { followerCreatedSchema } from './schemas/follower-created.schema';
-import { friendCreatedSchema } from './schemas/friend-created.schema';
-import { recoSentSchema } from './schemas/reco-sent.schema';
-import { recoCompletedSchema } from './schemas/reco-completed.schema';
+import { FollowerAcceptedPayload } from './schemas/follower-accepted.schema';
+import { FollowerRequestPayload } from './schemas/follower-request.schema';
+import { FollowerCreatedPayload } from './schemas/follower-created.schema';
+import { FriendCreatedPayload } from './schemas/friend-created.schema';
+import { RecoSentPayload } from './schemas/reco-sent.schema';
+import { RecoCompletedPayload } from './schemas/reco-completed.schema';
 
-export const notificationPayloadSchema = z.discriminatedUnion('type', [
-	followerAcceptedSchema,
-	followerRequestSchema,
-	followerCreatedSchema,
-	friendCreatedSchema,
-	recoSentSchema,
-	recoCompletedSchema,
-]);
+export type NotificationPayload = 
+	FollowerAcceptedPayload
+	& FollowerRequestPayload
+	& FollowerCreatedPayload
+	& FriendCreatedPayload
+	& RecoSentPayload
+	& RecoCompletedPayload;
 
-export type NotificationPayload = z.infer<typeof notificationPayloadSchema>;
