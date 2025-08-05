@@ -5121,6 +5121,7 @@ export type Database = {
       notification_type:
         | "follower_created"
         | "follower_accepted"
+        | "follower_request"
         | "friend_created"
         | "reco_sent"
         | "reco_completed"
