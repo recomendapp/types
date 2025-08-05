@@ -143,21 +143,12 @@ export type Products = Database['public']['Tables']['products']['Row'] & {
 
 /* ------------------------------ NOTIFICATIONS ----------------------------- */
 export type NotificationType = Database['public']['Enums']['notification_type'];
-export const NotificationTypeEnum = (type: NotificationType): NotificationType => {
-	switch (type) {
-		case 'follower_created':
-			return 'follower_created';
-		case 'follower_accepted':
-			return 'follower_accepted';
-		case 'reco_sent':
-			return 'reco_sent';
-		case 'reco_completed':
-			return 'reco_completed';
-		case 'friend_created':
-			return 'friend_created';
-		default:
-			throw new Error(`Unknown notification type: ${type}`);
-	}
+export const NotificationTypeEnum: Record<NotificationType, NotificationType> = {
+  follower_created: 'follower_created',
+  follower_accepted: 'follower_accepted',
+  reco_sent: 'reco_sent',
+  reco_completed: 'reco_completed',
+  friend_created: 'friend_created',
 };
 /* -------------------------------------------------------------------------- */
 
