@@ -1,3 +1,4 @@
+import type { Database } from './type.db.extended';
 import { Json as JsonGenerated } from "./__generated__/type.db";
 
 /* ---------------------------------- USER ---------------------------------- */
