@@ -141,6 +141,10 @@ export type Products = Database['public']['Tables']['products']['Row'] & {
 };
 /* -------------------------------------------------------------------------- */
 
+/* ------------------------------ NOTIFICATIONS ----------------------------- */
+export type NotificationType = Database['public']['Enums']['notification_type'];
+/* -------------------------------------------------------------------------- */
+
 /* --------------------------------- OTHERS --------------------------------- */
 export type Json = JsonGenerated;
 
