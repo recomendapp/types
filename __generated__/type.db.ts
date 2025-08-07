@@ -3334,7 +3334,6 @@ export type Database = {
         Row: {
           created_at: string
           device_type: Database["public"]["Enums"]["notifications_device_type"]
-          expires_at: string | null
           id: number
           provider: Database["public"]["Enums"]["notifications_provider"]
           token: string
@@ -3344,7 +3343,6 @@ export type Database = {
         Insert: {
           created_at?: string
           device_type: Database["public"]["Enums"]["notifications_device_type"]
-          expires_at?: string | null
           id?: number
           provider: Database["public"]["Enums"]["notifications_provider"]
           token: string
@@ -3354,7 +3352,6 @@ export type Database = {
         Update: {
           created_at?: string
           device_type?: Database["public"]["Enums"]["notifications_device_type"]
-          expires_at?: string | null
           id?: number
           provider?: Database["public"]["Enums"]["notifications_provider"]
           token?: string
@@ -5061,6 +5058,10 @@ export type Database = {
         }
         Returns: number
       }
+      utils_cancel_email_change: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
       utils_check_playlist_guest: {
         Args: {
           p_user_id: string
@@ -5100,6 +5101,10 @@ export type Database = {
           user_id: string
         }
         Returns: boolean
+      }
+      utils_delete_expired_user_notification_tokens: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
       }
       utils_delete_expired_users: {
         Args: Record<PropertyKey, never>
