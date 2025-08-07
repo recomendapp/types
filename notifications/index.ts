@@ -5,6 +5,15 @@ import { FriendCreatedPayload } from './schemas/friend-created.schema';
 import { RecoSentPayload } from './schemas/reco-sent.schema';
 import { RecoCompletedPayload } from './schemas/reco-completed.schema';
 
+export type {
+	FollowerAcceptedPayload,
+	FollowerRequestPayload,
+	FollowerCreatedPayload,
+	FriendCreatedPayload,
+	RecoSentPayload,
+	RecoCompletedPayload,
+}
+
 export type NotificationPayload = 
 	FollowerAcceptedPayload
 	& FollowerRequestPayload
