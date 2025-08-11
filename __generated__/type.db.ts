@@ -5034,21 +5034,12 @@ export type Database = {
         }
         Returns: string
       }
-      user_movie_guidelist_insert: {
-        Args: {
-          movieid: number
-          comment: string
-          sender_user_id: string
-          receiver_user_ids: string[]
-        }
-        Returns: undefined
-      }
       user_recos_insert: {
         Args: {
           mediaid: number
-          comment: string
           sender_user_id: string
           receiver_user_ids: string[]
+          comment?: string
         }
         Returns: undefined
       }
@@ -5148,6 +5139,7 @@ export type Database = {
         | "fetching_data"
         | "data_fetched"
         | "syncing_to_db"
+        | "updating_popularity"
         | "success"
         | "failed"
       sync_logs_type:
