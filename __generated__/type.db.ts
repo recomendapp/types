@@ -411,6 +411,56 @@ export type Database = {
           },
         ]
       }
+      playlists_likes: {
+        Row: {
+          created_at: string
+          id: number
+          playlist_id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          playlist_id: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          playlist_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "playlists_likes_playlist_id_fkey"
+            columns: ["playlist_id"]
+            isOneToOne: false
+            referencedRelation: "playlists"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playlists_likes_playlist_id_fkey"
+            columns: ["playlist_id"]
+            isOneToOne: false
+            referencedRelation: "playlists_friends"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playlists_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playlists_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       playlists_saved: {
         Row: {
           created_at: string
