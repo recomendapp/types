@@ -67,6 +67,12 @@ export type MediaPerson = Database['public']['Views']['media_person']['Row'] & {
 
 export type Media = MediaMovie & MediaTvSeries & MediaPerson & {
 };
+
+// 
+// export type Media =
+// 	| (MediaMovie & { media_type: "movie" })
+// 	| (MediaTvSeries & { media_type: "tv_series" })
+// 	| (MediaPerson & { media_type: "person" })
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------- ACTIVITY -------------------------------- */
