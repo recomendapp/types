@@ -1,6 +1,6 @@
 
 import { Database as PostgresSchema } from './__generated__/type.db';
-import { JSONContent, Media, MediaPerson, User } from './type.db';
+import { JSONContent, MediaMovie, MediaPerson, MediaTvSeries, User, UserActivityType, UserRecosType, UserReview, UserWatchlistType } from './type.db';
 
 type PostgresTables = PostgresSchema['public']['Tables'];
 type PostgresViews = PostgresSchema['public']['Views'];
@@ -17,9 +17,12 @@ type TableExtensions = {
     };
   };
   **/
-  user_review: {
+  user_reviews_movie: {
     body: JSONContent;
-  }
+  },
+  user_reviews_tv_series: {
+    body: JSONContent;
+  },
 };
 
 type ViewExtensions = {
@@ -32,32 +35,58 @@ type ViewExtensions = {
 	};
   };
   **/
- /* ---------------------------------- MEDIA --------------------------------- */
-  media: {
-    id: number,
-    main_credit: Media['main_credit'],
-    genres: Media['genres'],
-    extra_data: Media['extra_data'],
+  /* ------------------------------- ACTIVITIES ------------------------------- */
+  user_activities: {
+    id: number;
+    type: UserActivityType;
+    media: MediaMovie | MediaTvSeries;
+    user?: User;
+    review?: UserReview | null;
+  };
+  /* -------------------------------------------------------------------------- */
+  /* ------------------------------- WATCHLISTS ------------------------------- */
+  user_watchlists: {
+    id: number;
+    type: UserWatchlistType;
+    media: MediaMovie | MediaTvSeries;
+  };
+  /* -------------------------------------------------------------------------- */
+  /* ---------------------------------- RECOS --------------------------------- */
+  user_recos_aggregated: {
+    type: UserRecosType;
+    media: MediaMovie | MediaTvSeries;
+    senders: {
+      user: User;
+      comment?: string | null;
+      created_at: string;
+    }[];
   },
+  user_recos_movie_aggregated: {
+    senders: {
+      user: User,
+      comment?: string | null,
+      created_at: string,
+    }[]
+  };
+  user_recos_tv_series_aggregated: {
+    senders: {
+      user: User,
+      comment?: string | null,
+      created_at: string,
+    }[]
+  };
+  /* -------------------------------------------------------------------------- */
+  /* ---------------------------------- MEDIA --------------------------------- */
   media_movie: {
     id: number,
-    main_credit?: MediaPerson[],
+    directors?: MediaPerson[],
     genres?: {
         id: number
         name: string
     }[],
-    extra_data: {
-      overview?: string | null,
-      release_date: string | null,
-      runtime: number | null,
-      original_title: string,
-      original_language: string,
-      status: string,
-      type: string,
-    },
   },
   media_movie_aggregate_credits: {
-    media: Media,
+    movie: MediaMovie,
     credits: {
       job: string,
       credit_id: string,
@@ -66,26 +95,14 @@ type ViewExtensions = {
   },
   media_tv_series: {
     id: number,
-    main_credit?: MediaPerson[],
+    created_by?: MediaPerson[],
     genres?: {
       id: number
       name: string
     }[],
-    extra_data: {
-      overview?: string | null,
-      first_air_date: string | null,
-      in_production: boolean,
-      last_air_date: string | null,
-      number_of_episodes: number,
-      number_of_seasons: number,
-      original_name: string,
-      original_language: string,
-      status: string,
-      type: string,
-    },
   },
   media_tv_series_aggregate_credits: {
-    media: Media,
+    tv_series: MediaTvSeries,
     credits: {
       credit_id: string,
       department: string,
@@ -98,39 +115,18 @@ type ViewExtensions = {
   },
   media_person: {
     id: number,
-    main_credit?: MediaPerson[],
-    genres?: {
-      id: number
-      name: string
-    }[],
-    extra_data: {
-      birthday: string | null,
-      deathday: string | null,
-      homepage: string | null,
-      imdb_id: string | null,
-      known_for_department: string,
-      place_of_birth: string | null,
-      gender: number,
-      biography: string,
-    },
   },
-  media_person_combined_credits: {
-    media: Media,
-}
- /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+
+  /* --------------------------------- WIDGETS -------------------------------- */
+  widget_most_recommended: {
+    type: UserRecosType;
+    media: MediaMovie | MediaTvSeries;
+  }
+  /* -------------------------------------------------------------------------- */
+
 
   /* -------------------------------- PLAYLIST -------------------------------- */
-  playlist_items_media: {
-    media: Media,
-  },
-  user_recos_aggregated: {
-    media?: Media,
-    senders: {
-      user: User,
-      comment?: string | null,
-      created_at: string,
-    }[],
-  },
 };
 // <END>
 // ☝️ this is the only thing you edit

@@ -24,7 +24,7 @@ export type Database = {
         }
         Relationships: []
       }
-      media_stats: {
+      media_movie_stats: {
         Row: {
           id: number
           likes_count: number
@@ -60,38 +60,68 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "media_stats_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "media_stats_id_fkey"
+            foreignKeyName: "media_movie_stats_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "media_stats_id_fkey"
+            foreignKeyName: "media_movie_stats_id_fkey"
             columns: ["id"]
             isOneToOne: true
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
           },
+        ]
+      }
+      media_tv_series_stats: {
+        Row: {
+          id: number
+          likes_count: number
+          popularity: number | null
+          recos_count: number
+          review_count: number
+          vote_average: number | null
+          vote_count: number
+          watch_count: number
+          watchlist_count: number
+        }
+        Insert: {
+          id: number
+          likes_count?: number
+          popularity?: number | null
+          recos_count?: number
+          review_count?: number
+          vote_average?: number | null
+          vote_count?: number
+          watch_count?: number
+          watchlist_count?: number
+        }
+        Update: {
+          id?: number
+          likes_count?: number
+          popularity?: number | null
+          recos_count?: number
+          review_count?: number
+          vote_average?: number | null
+          vote_count?: number
+          watch_count?: number
+          watchlist_count?: number
+        }
+        Relationships: [
           {
-            foreignKeyName: "media_stats_id_fkey"
+            foreignKeyName: "media_tv_series_stats_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "media_stats_id_fkey"
+            foreignKeyName: "media_tv_series_stats_id_fkey"
             columns: ["id"]
             isOneToOne: true
-            referencedRelation: "medias"
+            referencedRelation: "tmdb_tv_series"
             referencedColumns: ["id"]
           },
         ]
@@ -230,12 +260,12 @@ export type Database = {
           },
         ]
       }
-      playlist_items: {
+      playlist_items_movie: {
         Row: {
           comment: string | null
           created_at: string
           id: number
-          media_id: number
+          movie_id: number
           playlist_id: number
           rank: number
           user_id: string
@@ -244,7 +274,7 @@ export type Database = {
           comment?: string | null
           created_at?: string
           id?: number
-          media_id: number
+          movie_id: number
           playlist_id: number
           rank: number
           user_id: string
@@ -253,70 +283,122 @@ export type Database = {
           comment?: string | null
           created_at?: string
           id?: number
-          media_id?: number
+          movie_id?: number
           playlist_id?: number
           rank?: number
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "playlist_items_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "playlist_items_media_id_fkey"
-            columns: ["media_id"]
+            foreignKeyName: "playlist_items_movie_id_fkey"
+            columns: ["movie_id"]
             isOneToOne: false
             referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "playlist_items_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "playlist_items_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "playlist_items_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "playlist_items_playlist_id_fkey"
+            foreignKeyName: "playlist_items_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playlist_items_movie_playlist_id_fkey"
             columns: ["playlist_id"]
             isOneToOne: false
             referencedRelation: "playlists"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "playlist_items_playlist_id_fkey"
+            foreignKeyName: "playlist_items_movie_playlist_id_fkey"
             columns: ["playlist_id"]
             isOneToOne: false
             referencedRelation: "playlists_friends"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "playlist_items_user_id_fkey"
+            foreignKeyName: "playlist_items_movie_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profile"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "playlist_items_user_id_fkey"
+            foreignKeyName: "playlist_items_movie_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      playlist_items_tv_series: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: number
+          playlist_id: number
+          rank: number
+          tv_series_id: number
+          user_id: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: number
+          playlist_id: number
+          rank: number
+          tv_series_id: number
+          user_id: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: number
+          playlist_id?: number
+          rank?: number
+          tv_series_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "playlist_items_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playlist_items_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playlist_items_tv_series_playlist_id_fkey"
+            columns: ["playlist_id"]
+            isOneToOne: false
+            referencedRelation: "playlists"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playlist_items_tv_series_playlist_id_fkey"
+            columns: ["playlist_id"]
+            isOneToOne: false
+            referencedRelation: "playlists_friends"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playlist_items_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playlist_items_tv_series_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user"
@@ -335,6 +417,7 @@ export type Database = {
           private: boolean
           saved_count: number
           title: string
+          type: Database["public"]["Enums"]["playlists_type"]
           updated_at: string | null
           user_id: string
         }
@@ -348,6 +431,7 @@ export type Database = {
           private?: boolean
           saved_count?: number
           title: string
+          type: Database["public"]["Enums"]["playlists_type"]
           updated_at?: string | null
           user_id: string
         }
@@ -361,6 +445,7 @@ export type Database = {
           private?: boolean
           saved_count?: number
           title?: string
+          type?: Database["public"]["Enums"]["playlists_type"]
           updated_at?: string | null
           user_id?: string
         }
@@ -3125,6 +3210,142 @@ export type Database = {
         }
         Relationships: []
       }
+      user_activities_movie: {
+        Row: {
+          created_at: string
+          id: number
+          is_liked: boolean
+          liked_at: string | null
+          movie_id: number
+          rated_at: string | null
+          rating: number | null
+          updated_at: string
+          user_id: string
+          watched_date: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          is_liked?: boolean
+          liked_at?: string | null
+          movie_id: number
+          rated_at?: string | null
+          rating?: number | null
+          updated_at?: string
+          user_id: string
+          watched_date?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          is_liked?: boolean
+          liked_at?: string | null
+          movie_id?: number
+          rated_at?: string | null
+          rating?: number | null
+          updated_at?: string
+          user_id?: string
+          watched_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_activities_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "media_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_movie_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_movie_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_activities_tv_series: {
+        Row: {
+          created_at: string
+          id: number
+          is_liked: boolean
+          liked_at: string | null
+          rated_at: string | null
+          rating: number | null
+          tv_series_id: number
+          updated_at: string
+          user_id: string
+          watched_date: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          is_liked?: boolean
+          liked_at?: string | null
+          rated_at?: string | null
+          rating?: number | null
+          tv_series_id: number
+          updated_at?: string
+          user_id: string
+          watched_date?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          is_liked?: boolean
+          liked_at?: string | null
+          rated_at?: string | null
+          rating?: number | null
+          tv_series_id?: number
+          updated_at?: string
+          user_id?: string
+          watched_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_activities_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_activity: {
         Row: {
           created_at: string
@@ -3157,34 +3378,6 @@ export type Database = {
           watched_date?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
           {
             foreignKeyName: "user_activity_media_id_fkey"
             columns: ["media_id"]
@@ -3489,12 +3682,12 @@ export type Database = {
           },
         ]
       }
-      user_recos: {
+      user_recos_movie: {
         Row: {
           comment: string | null
           created_at: string
           id: number
-          media_id: number
+          movie_id: number
           sender_id: string
           status: Database["public"]["Enums"]["reco_status"]
           user_id: string
@@ -3503,7 +3696,7 @@ export type Database = {
           comment?: string | null
           created_at?: string
           id?: number
-          media_id: number
+          movie_id: number
           sender_id: string
           status?: Database["public"]["Enums"]["reco_status"]
           user_id: string
@@ -3512,70 +3705,49 @@ export type Database = {
           comment?: string | null
           created_at?: string
           id?: number
-          media_id?: number
+          movie_id?: number
           sender_id?: string
           status?: Database["public"]["Enums"]["reco_status"]
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
+            foreignKeyName: "user_recos_movie_movie_id_fkey"
+            columns: ["movie_id"]
             isOneToOne: false
             referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_recos_sender_id_fkey"
+            foreignKeyName: "user_recos_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_movie_sender_id_fkey"
             columns: ["sender_id"]
             isOneToOne: false
             referencedRelation: "profile"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_recos_sender_id_fkey"
+            foreignKeyName: "user_recos_movie_sender_id_fkey"
             columns: ["sender_id"]
             isOneToOne: false
             referencedRelation: "user"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_recos_user_id_fkey"
+            foreignKeyName: "user_recos_movie_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profile"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_recos_user_id_fkey"
+            foreignKeyName: "user_recos_movie_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user"
@@ -3583,7 +3755,166 @@ export type Database = {
           },
         ]
       }
-      user_review: {
+      user_recos_tv_series: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: number
+          sender_id: string
+          status: Database["public"]["Enums"]["reco_status"]
+          tv_series_id: number
+          user_id: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: number
+          sender_id: string
+          status?: Database["public"]["Enums"]["reco_status"]
+          tv_series_id: number
+          user_id: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: number
+          sender_id?: string
+          status?: Database["public"]["Enums"]["reco_status"]
+          tv_series_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_recos_tv_series_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_review_movie_likes: {
+        Row: {
+          created_at: string
+          id: number
+          review_id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          review_id: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          review_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_review_movie_likes_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: false
+            referencedRelation: "user_reviews_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_review_movie_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_review_movie_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_review_tv_series_likes: {
+        Row: {
+          created_at: string
+          id: number
+          review_id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          review_id: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          review_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_review_tv_series_likes_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: false
+            referencedRelation: "user_reviews_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_review_tv_series_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_review_tv_series_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_reviews_movie: {
         Row: {
           body: Json
           comments_count: number
@@ -3616,67 +3947,65 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "user_review_id_fkey"
+            foreignKeyName: "user_reviews_movie_id_fkey"
             columns: ["id"]
             isOneToOne: true
-            referencedRelation: "user_activity"
+            referencedRelation: "user_activities_movie"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_review_id_fkey"
+            foreignKeyName: "user_reviews_movie_id_fkey"
             columns: ["id"]
             isOneToOne: true
-            referencedRelation: "user_feed"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_review_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "user_followers_rating"
+            referencedRelation: "user_activities_movie_follower"
             referencedColumns: ["id"]
           },
         ]
       }
-      user_review_like: {
+      user_reviews_tv_series: {
         Row: {
+          body: Json
+          comments_count: number
           created_at: string
           id: number
-          review_id: number
-          user_id: string
+          likes_count: number
+          title: string | null
+          updated_at: string
+          views_count: number
         }
         Insert: {
+          body: Json
+          comments_count?: number
           created_at?: string
           id?: number
-          review_id: number
-          user_id: string
+          likes_count?: number
+          title?: string | null
+          updated_at?: string
+          views_count?: number
         }
         Update: {
+          body?: Json
+          comments_count?: number
           created_at?: string
           id?: number
-          review_id?: number
-          user_id?: string
+          likes_count?: number
+          title?: string | null
+          updated_at?: string
+          views_count?: number
         }
         Relationships: [
           {
-            foreignKeyName: "user_review_like_review_id_fkey"
-            columns: ["review_id"]
-            isOneToOne: false
-            referencedRelation: "user_review"
+            foreignKeyName: "user_reviews_tv_series_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "user_activities_tv_series"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_review_like_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profile"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_review_like_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user"
+            foreignKeyName: "user_reviews_tv_series_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "user_activities_tv_series_follower"
             referencedColumns: ["id"]
           },
         ]
@@ -3757,12 +4086,12 @@ export type Database = {
           },
         ]
       }
-      user_watchlist: {
+      user_watchlists_movie: {
         Row: {
           comment: string | null
           created_at: string
           id: number
-          media_id: number
+          movie_id: number
           status: Database["public"]["Enums"]["watchlist_status"]
           user_id: string
         }
@@ -3770,7 +4099,7 @@ export type Database = {
           comment?: string | null
           created_at?: string
           id?: number
-          media_id: number
+          movie_id: number
           status?: Database["public"]["Enums"]["watchlist_status"]
           user_id: string
         }
@@ -3778,55 +4107,90 @@ export type Database = {
           comment?: string | null
           created_at?: string
           id?: number
-          media_id?: number
+          movie_id?: number
           status?: Database["public"]["Enums"]["watchlist_status"]
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
+            foreignKeyName: "user_watchlists_movie_movie_id_fkey"
+            columns: ["movie_id"]
             isOneToOne: false
             referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_watchlist_user_id_fkey"
+            foreignKeyName: "user_watchlists_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_watchlists_movie_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profile"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_watchlist_user_id_fkey"
+            foreignKeyName: "user_watchlists_movie_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_watchlists_tv_series: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: number
+          status: Database["public"]["Enums"]["watchlist_status"]
+          tv_series_id: number
+          user_id: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: number
+          status?: Database["public"]["Enums"]["watchlist_status"]
+          tv_series_id: number
+          user_id: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: number
+          status?: Database["public"]["Enums"]["watchlist_status"]
+          tv_series_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_watchlists_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_watchlists_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_watchlists_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_watchlists_tv_series_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user"
@@ -3861,65 +4225,31 @@ export type Database = {
         }
         Relationships: []
       }
-      media: {
-        Row: {
-          avatar_path: string | null
-          avatar_url: string | null
-          backdrop_path: string | null
-          backdrop_url: string | null
-          date: string | null
-          extra_data: Json | null
-          follower_avg_rating: number | null
-          genres: Json[] | null
-          id: number | null
-          likes_count: number | null
-          main_credit: Json[] | null
-          media_id: number | null
-          media_type: Database["public"]["Enums"]["media_type"] | null
-          popularity: number | null
-          recos_count: number | null
-          review_count: number | null
-          slug: string | null
-          title: string | null
-          tmdb_popularity: number | null
-          tmdb_vote_average: number | null
-          tmdb_vote_count: number | null
-          url: string | null
-          vote_average: number | null
-          vote_count: number | null
-          watch_count: number | null
-          watchlist_count: number | null
-        }
-        Relationships: []
-      }
       media_movie: {
         Row: {
-          avatar_path: string | null
-          avatar_url: string | null
           backdrop_path: string | null
           backdrop_url: string | null
-          date: string | null
-          extra_data: Json | null
+          budget: number | null
+          directors: Json[] | null
           follower_avg_rating: number | null
           genres: Json[] | null
+          homepage: string | null
           id: number | null
-          likes_count: number | null
-          main_credit: Json[] | null
-          media_id: number | null
-          media_type: Database["public"]["Enums"]["media_type"] | null
+          original_language: string | null
+          original_title: string | null
+          overview: string | null
           popularity: number | null
-          recos_count: number | null
-          review_count: number | null
+          poster_path: string | null
+          poster_url: string | null
+          release_date: string | null
+          revenue: number | null
+          runtime: number | null
           slug: string | null
+          status: string | null
           title: string | null
-          tmdb_popularity: number | null
-          tmdb_vote_average: number | null
-          tmdb_vote_count: number | null
           url: string | null
           vote_average: number | null
           vote_count: number | null
-          watch_count: number | null
-          watchlist_count: number | null
         }
         Relationships: []
       }
@@ -3976,63 +4306,58 @@ export type Database = {
       }
       media_person: {
         Row: {
-          avatar_path: string | null
-          avatar_url: string | null
-          backdrop_path: string | null
-          backdrop_url: string | null
-          date: string | null
-          extra_data: Json | null
-          follower_avg_rating: number | null
-          genres: Json[] | null
+          biography: string | null
+          birthday: string | null
+          deathday: string | null
+          gender: number | null
+          homepage: string | null
           id: number | null
-          likes_count: number | null
-          main_credit: Json[] | null
-          media_id: number | null
-          media_type: Database["public"]["Enums"]["media_type"] | null
+          imdb_id: string | null
+          known_for_department: string | null
+          name: string | null
+          place_of_birth: string | null
           popularity: number | null
-          recos_count: number | null
-          review_count: number | null
+          profile_path: string | null
+          profile_url: string | null
           slug: string | null
-          title: string | null
-          tmdb_popularity: number | null
-          tmdb_vote_average: number | null
-          tmdb_vote_count: number | null
           url: string | null
-          vote_average: number | null
-          vote_count: number | null
-          watch_count: number | null
-          watchlist_count: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "tmdb_person_gender_fkey"
+            columns: ["gender"]
+            isOneToOne: false
+            referencedRelation: "tmdb_gender"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       media_tv_series: {
         Row: {
-          avatar_path: string | null
-          avatar_url: string | null
           backdrop_path: string | null
           backdrop_url: string | null
-          date: string | null
-          extra_data: Json | null
+          created_by: Json[] | null
+          first_air_date: string | null
           follower_avg_rating: number | null
           genres: Json[] | null
           id: number | null
-          likes_count: number | null
-          main_credit: Json[] | null
-          media_id: number | null
-          media_type: Database["public"]["Enums"]["media_type"] | null
+          in_production: boolean | null
+          last_air_date: string | null
+          name: string | null
+          number_of_episodes: number | null
+          number_of_seasons: number | null
+          original_language: string | null
+          original_name: string | null
+          overview: string | null
           popularity: number | null
-          recos_count: number | null
-          review_count: number | null
+          poster_path: string | null
+          poster_url: string | null
           slug: string | null
-          title: string | null
-          tmdb_popularity: number | null
-          tmdb_vote_average: number | null
-          tmdb_vote_count: number | null
+          status: string | null
+          type: string | null
           url: string | null
           vote_average: number | null
           vote_count: number | null
-          watch_count: number | null
-          watchlist_count: number | null
         }
         Relationships: []
       }
@@ -4091,22 +4416,21 @@ export type Database = {
       media_tv_series_episodes: {
         Row: {
           air_date: string | null
-          avatar_path: string | null
-          avatar_url: string | null
           episode_number: number | null
           episode_type: string | null
-          extra_data: Json | null
           id: number | null
+          name: string | null
           overview: string | null
           production_code: string | null
           runtime: number | null
           season_id: number | null
           season_number: number | null
           serie_id: number | null
-          title: string | null
-          tmdb_vote_average: number | null
-          tmdb_vote_count: number | null
+          still_path: string | null
+          still_url: string | null
           url: string | null
+          vote_average: number | null
+          vote_count: number | null
         }
         Relationships: [
           {
@@ -4148,17 +4472,16 @@ export type Database = {
       }
       media_tv_series_seasons: {
         Row: {
-          avatar_path: string | null
-          avatar_url: string | null
           episode_count: number | null
-          extra_data: Json | null
           id: number | null
+          name: string | null
+          poster_path: string | null
+          poster_url: string | null
           season_number: number | null
           serie_id: number | null
-          title: string | null
-          tmdb_vote_average: number | null
-          tmdb_vote_count: number | null
           url: string | null
+          vote_average: number | null
+          vote_count: number | null
         }
         Relationships: [
           {
@@ -4502,88 +4825,175 @@ export type Database = {
           },
         ]
       }
-      user_feed: {
+      user_activities: {
         Row: {
           created_at: string | null
           id: number | null
           is_liked: boolean | null
+          liked_at: string | null
+          media: Json | null
           media_id: number | null
+          rated_at: string | null
+          rating: number | null
+          review: Json | null
+          type: string | null
+          updated_at: string | null
+          user: Json | null
+          user_id: string | null
+          watched_date: string | null
+        }
+        Relationships: []
+      }
+      user_activities_movie_follower: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          is_liked: boolean | null
+          liked_at: string | null
+          movie_id: number | null
+          rated_at: string | null
           rating: number | null
           updated_at: string | null
           user_id: string | null
           watched_date: string | null
         }
-        Insert: {
-          created_at?: string | null
-          id?: number | null
-          is_liked?: boolean | null
-          media_id?: number | null
-          rating?: number | null
-          updated_at?: string | null
-          user_id?: string | null
-          watched_date?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          id?: number | null
-          is_liked?: boolean | null
-          media_id?: number | null
-          rating?: number | null
-          updated_at?: string | null
-          user_id?: string | null
-          watched_date?: string | null
-        }
         Relationships: [
           {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
+            foreignKeyName: "user_activities_movie_movie_id_fkey"
+            columns: ["movie_id"]
             isOneToOne: false
             referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_activity_user_id_fkey"
+            foreignKeyName: "user_activities_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_movie_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profile"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_activity_user_id_fkey"
+            foreignKeyName: "user_activities_movie_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user"
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_activities_movie_follower_average_rating: {
+        Row: {
+          follower_avg_rating: number | null
+          movie_id: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_activities_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "media_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_activities_tv_series_follower: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          is_liked: boolean | null
+          liked_at: string | null
+          rated_at: string | null
+          rating: number | null
+          tv_series_id: number | null
+          updated_at: string | null
+          user_id: string | null
+          watched_date: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_activities_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_activities_tv_series_follower_average_rating: {
+        Row: {
+          follower_avg_rating: number | null
+          tv_series_id: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_activities_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_activities_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_feed: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          is_liked: boolean | null
+          liked_at: string | null
+          media: Json | null
+          media_id: number | null
+          rated_at: string | null
+          rating: number | null
+          review: Json | null
+          type: string | null
+          updated_at: string | null
+          user: Json | null
+          user_id: string | null
+          watched_date: string | null
+        }
+        Relationships: []
       }
       user_feed_cast_crew: {
         Row: {
@@ -4636,225 +5046,62 @@ export type Database = {
           },
         ]
       }
-      user_followers_average_rating: {
-        Row: {
-          follower_avg_rating: number | null
-          media_id: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      user_followers_rating: {
-        Row: {
-          created_at: string | null
-          id: number | null
-          is_liked: boolean | null
-          media_id: number | null
-          rating: number | null
-          updated_at: string | null
-          user_id: string | null
-          watched_date: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_activity_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profile"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_activity_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       user_recos_aggregated: {
         Row: {
           created_at: string | null
+          media: Json | null
           media_id: number | null
           senders: Json[] | null
           status: Database["public"]["Enums"]["reco_status"] | null
+          type: string | null
           user_id: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_recos_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profile"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_recos_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       user_recos_aggregated_random: {
         Row: {
           created_at: string | null
+          media: Json | null
           media_id: number | null
+          senders: Json[] | null
+          status: Database["public"]["Enums"]["reco_status"] | null
+          type: string | null
+          user_id: string | null
+        }
+        Relationships: []
+      }
+      user_recos_movie_aggregated: {
+        Row: {
+          created_at: string | null
+          movie_id: number | null
           senders: Json[] | null
           status: Database["public"]["Enums"]["reco_status"] | null
           user_id: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
+            foreignKeyName: "user_recos_movie_movie_id_fkey"
+            columns: ["movie_id"]
             isOneToOne: false
             referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_recos_user_id_fkey"
+            foreignKeyName: "user_recos_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_movie_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profile"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_recos_user_id_fkey"
+            foreignKeyName: "user_recos_movie_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user"
@@ -4862,145 +5109,170 @@ export type Database = {
           },
         ]
       }
-      user_watchlist_random: {
+      user_recos_movie_aggregated_random: {
+        Row: {
+          created_at: string | null
+          movie_id: number | null
+          senders: Json[] | null
+          status: Database["public"]["Enums"]["reco_status"] | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_recos_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "media_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_movie_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_movie_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_movie_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_recos_tv_series_aggregated: {
+        Row: {
+          created_at: string | null
+          senders: Json[] | null
+          status: Database["public"]["Enums"]["reco_status"] | null
+          tv_series_id: number | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_recos_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_recos_tv_series_aggregated_random: {
+        Row: {
+          created_at: string | null
+          senders: Json[] | null
+          status: Database["public"]["Enums"]["reco_status"] | null
+          tv_series_id: number | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_recos_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_tv_series_id_fkey"
+            columns: ["tv_series_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recos_tv_series_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_watchlists: {
         Row: {
           comment: string | null
           created_at: string | null
           id: number | null
+          media: Json | null
           media_id: number | null
           status: Database["public"]["Enums"]["watchlist_status"] | null
+          type: string | null
           user_id: string | null
         }
-        Insert: {
-          comment?: string | null
-          created_at?: string | null
-          id?: number | null
-          media_id?: number | null
-          status?: Database["public"]["Enums"]["watchlist_status"] | null
-          user_id?: string | null
+        Relationships: []
+      }
+      user_watchlists_random: {
+        Row: {
+          comment: string | null
+          created_at: string | null
+          id: number | null
+          media: Json | null
+          media_id: number | null
+          status: Database["public"]["Enums"]["watchlist_status"] | null
+          type: string | null
+          user_id: string | null
         }
-        Update: {
-          comment?: string | null
-          created_at?: string | null
-          id?: number | null
-          media_id?: number | null
-          status?: Database["public"]["Enums"]["watchlist_status"] | null
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profile"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_watchlist_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       widget_most_recommended: {
         Row: {
+          media: Json | null
           media_id: number | null
           recommendation_count: number | null
+          type: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_movie"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["media_id"]
-          },
-          {
-            foreignKeyName: "user_recos_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Functions: {
       delete_avatar: {
-        Args: {
-          avatar_url: string
-        }
+        Args: { avatar_url: string }
         Returns: Record<string, unknown>
       }
       delete_playlist_poster: {
-        Args: {
-          poster_url: string
-        }
+        Args: { poster_url: string }
         Returns: Record<string, unknown>
       }
       delete_storage_object: {
-        Args: {
-          bucket: string
-          object: string
-        }
+        Args: { bucket: string; object: string }
         Returns: Record<string, unknown>
       }
       find_media: {
@@ -5009,16 +5281,6 @@ export type Database = {
           p_media_type: Database["public"]["Enums"]["media_type"]
         }
         Returns: Json
-      }
-      get_config: {
-        Args: {
-          user_id?: string
-        }
-        Returns: {
-          maintenance_mode: boolean
-          user_language: string
-          user_premium: boolean
-        }[]
       }
       importer_best_match_movie: {
         Args: {
@@ -5036,12 +5298,9 @@ export type Database = {
           directors: Json
         }[]
       }
-      playlist_guests_update: {
-        Args: {
-          p_playlist_id: number
-          p_guests: Json
-        }
-        Returns: undefined
+      is_maintenance: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
       }
       search_movies: {
         Args: {
@@ -5079,14 +5338,21 @@ export type Database = {
         }[]
       }
       slugify: {
-        Args: {
-          value: string
-        }
+        Args: { value: string }
         Returns: string
       }
-      user_recos_insert: {
+      user_recos_movie_insert: {
         Args: {
-          mediaid: number
+          p_movie_id: number
+          sender_user_id: string
+          receiver_user_ids: string[]
+          comment?: string
+        }
+        Returns: undefined
+      }
+      user_recos_tv_series_insert: {
+        Args: {
+          p_tv_series_id: number
           sender_user_id: string
           receiver_user_ids: string[]
           comment?: string
@@ -5094,9 +5360,7 @@ export type Database = {
         Returns: undefined
       }
       utils_calculate_vote_average: {
-        Args: {
-          media_id: number
-        }
+        Args: { media_id: number }
         Returns: number
       }
       utils_cancel_email_change: {
@@ -5104,43 +5368,31 @@ export type Database = {
         Returns: Json
       }
       utils_check_playlist_guest: {
-        Args: {
-          p_user_id: string
-          p_playlist_id: number
-        }
+        Args: { p_user_id: string; p_playlist_id: number }
         Returns: boolean
       }
       utils_check_playlist_owner: {
-        Args: {
-          p_user_id: string
-          p_playlist_id: number
-        }
+        Args: { p_user_id: string; p_playlist_id: number }
         Returns: boolean
       }
       utils_check_playlist_privacy: {
-        Args: {
-          p_playlist_id: number
-        }
+        Args: { p_playlist_id: number }
+        Returns: boolean
+      }
+      utils_check_playlist_type: {
+        Args: { p_playlist_id: number; p_expected_type: string }
         Returns: boolean
       }
       utils_check_user_following: {
-        Args: {
-          p_follower_id: string
-          p_followee_id: string
-        }
+        Args: { p_follower_id: string; p_followee_id: string }
         Returns: boolean
       }
       utils_check_user_friendship: {
-        Args: {
-          user_id_1: string
-          user_id_2: string
-        }
+        Args: { user_id_1: string; user_id_2: string }
         Returns: boolean
       }
       utils_check_user_privacy: {
-        Args: {
-          user_id: string
-        }
+        Args: { user_id: string }
         Returns: boolean
       }
       utils_delete_expired_user_notification_tokens: {
@@ -5152,15 +5404,12 @@ export type Database = {
         Returns: undefined
       }
       utils_generate_username: {
-        Args: {
-          user_details: unknown
-        }
+        Args: { user_details: unknown }
         Returns: string
       }
     }
     Enums: {
       eventType: "INSERT" | "DELETE" | "UPDATE"
-      guidelist_status: "active" | "completed" | "deleted"
       image_type: "backdrop" | "poster" | "logo" | "profile"
       language_app: "en-US" | "fr-FR"
       media_type: "movie" | "tv_series" | "person" | "tv_season" | "tv_episode"
@@ -5173,6 +5422,7 @@ export type Database = {
         | "reco_completed"
       notifications_device_type: "web" | "ios" | "android" | "windows" | "macos"
       notifications_provider: "fcm" | "expo" | "apns"
+      playlists_type: "movie" | "tv_series"
       pricing_plan_interval: "day" | "week" | "month" | "year"
       pricing_type: "one_time" | "recurring"
       reco_status: "active" | "completed" | "deleted"
@@ -5211,27 +5461,29 @@ export type Database = {
   }
 }
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type DefaultSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-        Database[PublicTableNameOrOptions["schema"]]["Views"])
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-        PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
-        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -5239,20 +5491,22 @@ export type Tables<
     : never
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
+  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -5260,20 +5514,22 @@ export type TablesInsert<
     : never
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
+  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -5281,21 +5537,23 @@ export type TablesUpdate<
     : never
 
 export type Enums<
-  PublicEnumNameOrOptions extends
-    | keyof PublicSchema["Enums"]
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
     | { schema: keyof Database },
-  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof PublicSchema["CompositeTypes"]
+    | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof Database },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof Database
@@ -5304,7 +5562,63 @@ export type CompositeTypes<
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
   ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
-    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
+
+export const Constants = {
+  public: {
+    Enums: {
+      eventType: ["INSERT", "DELETE", "UPDATE"],
+      image_type: ["backdrop", "poster", "logo", "profile"],
+      language_app: ["en-US", "fr-FR"],
+      media_type: ["movie", "tv_series", "person", "tv_season", "tv_episode"],
+      notification_type: [
+        "follower_created",
+        "follower_accepted",
+        "follower_request",
+        "friend_created",
+        "reco_sent",
+        "reco_completed",
+      ],
+      notifications_device_type: ["web", "ios", "android", "windows", "macos"],
+      notifications_provider: ["fcm", "expo", "apns"],
+      playlists_type: ["movie", "tv_series"],
+      pricing_plan_interval: ["day", "week", "month", "year"],
+      pricing_type: ["one_time", "recurring"],
+      reco_status: ["active", "completed", "deleted"],
+      subscription_status: [
+        "trialing",
+        "active",
+        "canceled",
+        "incomplete",
+        "incomplete_expired",
+        "past_due",
+        "unpaid",
+      ],
+      sync_logs_status: [
+        "initialized",
+        "fetching_data",
+        "data_fetched",
+        "syncing_to_db",
+        "updating_popularity",
+        "success",
+        "failed",
+      ],
+      sync_logs_type: [
+        "tmdb_movie",
+        "tmdb_person",
+        "tmdb_collection",
+        "tmdb_keyword",
+        "tmdb_company",
+        "tmdb_language",
+        "tmdb_country",
+        "tmdb_genre",
+        "tmdb_network",
+        "tmdb_tv_serie",
+      ],
+      watchlist_status: ["active", "completed"],
+    },
+  },
+} as const
 
