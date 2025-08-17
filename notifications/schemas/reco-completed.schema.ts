@@ -13,6 +13,8 @@ export const recoCompletedSchema = z.object({
 			.describe('The avatar of the user who received the reco'),
 	}),
 	media: z.object({
+		id: z.number().int().describe('The ID of the media that was recommended'),
+		type: z.string().describe('The type of the media that was recommended'),
 		title: z.string().describe('The media that was recommended'),
 		url: z.string().describe('The url of the media that was recommended'),
 	}),
