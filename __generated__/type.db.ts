@@ -24,6 +24,45 @@ export type Database = {
         }
         Relationships: []
       }
+      feed: {
+        Row: {
+          activity_id: number
+          activity_type: Database["public"]["Enums"]["feed_type"]
+          created_at: string
+          id: number
+          user_id: string
+        }
+        Insert: {
+          activity_id: number
+          activity_type: Database["public"]["Enums"]["feed_type"]
+          created_at?: string
+          id?: number
+          user_id: string
+        }
+        Update: {
+          activity_id?: number
+          activity_type?: Database["public"]["Enums"]["feed_type"]
+          created_at?: string
+          id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feed_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "feed_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       media_movie_stats: {
         Row: {
           id: number
@@ -120,87 +159,6 @@ export type Database = {
           {
             foreignKeyName: "media_tv_series_stats_id_fkey"
             columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "tmdb_tv_series"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      medias: {
-        Row: {
-          id: number
-          media_type: Database["public"]["Enums"]["media_type"]
-          movie_id: number | null
-          person_id: number | null
-          tv_series_id: number | null
-        }
-        Insert: {
-          id?: number
-          media_type: Database["public"]["Enums"]["media_type"]
-          movie_id?: number | null
-          person_id?: number | null
-          tv_series_id?: number | null
-        }
-        Update: {
-          id?: number
-          media_type?: Database["public"]["Enums"]["media_type"]
-          movie_id?: number | null
-          person_id?: number | null
-          tv_series_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "media_movie_id_fkey"
-            columns: ["movie_id"]
-            isOneToOne: true
-            referencedRelation: "media_movie"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "media_movie_id_fkey"
-            columns: ["movie_id"]
-            isOneToOne: true
-            referencedRelation: "tmdb_movie"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "media_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: true
-            referencedRelation: "media_person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "media_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: true
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "media_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: true
-            referencedRelation: "person_full"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "media_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: true
-            referencedRelation: "tmdb_person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "media_tv_series_id_fkey"
-            columns: ["tv_series_id"]
-            isOneToOne: true
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "media_tv_series_id_fkey"
-            columns: ["tv_series_id"]
             isOneToOne: true
             referencedRelation: "tmdb_tv_series"
             referencedColumns: ["id"]
@@ -3346,61 +3304,6 @@ export type Database = {
           },
         ]
       }
-      user_activity: {
-        Row: {
-          created_at: string
-          id: number
-          is_liked: boolean
-          media_id: number
-          rating: number | null
-          updated_at: string
-          user_id: string
-          watched_date: string
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          is_liked?: boolean
-          media_id: number
-          rating?: number | null
-          updated_at?: string
-          user_id: string
-          watched_date?: string
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          is_liked?: boolean
-          media_id?: number
-          rating?: number | null
-          updated_at?: string
-          user_id?: string
-          watched_date?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_activity_media_id_fkey"
-            columns: ["media_id"]
-            isOneToOne: false
-            referencedRelation: "medias"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_activity_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profile"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_activity_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       user_billing: {
         Row: {
           billing_address: Json | null
@@ -4224,6 +4127,45 @@ export type Database = {
           parent_company: Json | null
         }
         Relationships: []
+      }
+      feed_content: {
+        Row: {
+          activity_type: Database["public"]["Enums"]["feed_type"] | null
+          content: Json | null
+          created_at: string | null
+          feed_id: number | null
+          user_id: string | null
+        }
+        Insert: {
+          activity_type?: Database["public"]["Enums"]["feed_type"] | null
+          content?: never
+          created_at?: string | null
+          feed_id?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          activity_type?: Database["public"]["Enums"]["feed_type"] | null
+          content?: never
+          created_at?: string | null
+          feed_id?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feed_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "feed_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       media_movie: {
         Row: {
@@ -5257,7 +5199,7 @@ export type Database = {
           media: Json | null
           media_id: number | null
           recommendation_count: number | null
-          type: string | null
+          type: Database["public"]["Enums"]["user_recos_type"] | null
         }
         Relationships: []
       }
@@ -5281,6 +5223,17 @@ export type Database = {
           p_media_type: Database["public"]["Enums"]["media_type"]
         }
         Returns: Json
+      }
+      get_feed: {
+        Args: { page_limit: number; page_offset: number }
+        Returns: {
+          feed_id: number
+          user_id: string
+          activity_type: Database["public"]["Enums"]["feed_type"]
+          created_at: string
+          author: Json
+          content: Json
+        }[]
       }
       importer_best_match_movie: {
         Args: {
@@ -5410,6 +5363,12 @@ export type Database = {
     }
     Enums: {
       eventType: "INSERT" | "DELETE" | "UPDATE"
+      feed_type:
+        | "activity_movie"
+        | "activity_tv_series"
+        | "review_movie_like"
+        | "review_tv_series_like"
+        | "playlist_like"
       image_type: "backdrop" | "poster" | "logo" | "profile"
       language_app: "en-US" | "fr-FR"
       media_type: "movie" | "tv_series" | "person" | "tv_season" | "tv_episode"
@@ -5453,6 +5412,10 @@ export type Database = {
         | "tmdb_genre"
         | "tmdb_network"
         | "tmdb_tv_serie"
+      user_activity_type: "movie" | "tv_series"
+      user_recos_type: "movie" | "tv_series"
+      user_review_type: "movie" | "tv_series"
+      user_watchlist_type: "movie" | "tv_series"
       watchlist_status: "active" | "completed"
     }
     CompositeTypes: {
@@ -5570,6 +5533,13 @@ export const Constants = {
   public: {
     Enums: {
       eventType: ["INSERT", "DELETE", "UPDATE"],
+      feed_type: [
+        "activity_movie",
+        "activity_tv_series",
+        "review_movie_like",
+        "review_tv_series_like",
+        "playlist_like",
+      ],
       image_type: ["backdrop", "poster", "logo", "profile"],
       language_app: ["en-US", "fr-FR"],
       media_type: ["movie", "tv_series", "person", "tv_season", "tv_episode"],
@@ -5617,6 +5587,10 @@ export const Constants = {
         "tmdb_network",
         "tmdb_tv_serie",
       ],
+      user_activity_type: ["movie", "tv_series"],
+      user_recos_type: ["movie", "tv_series"],
+      user_review_type: ["movie", "tv_series"],
+      user_watchlist_type: ["movie", "tv_series"],
       watchlist_status: ["active", "completed"],
     },
   },

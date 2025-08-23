@@ -1,9 +1,10 @@
 
 import { Database as PostgresSchema } from './__generated__/type.db';
-import { JSONContent, MediaMovie, MediaPerson, MediaTvSeries, User, UserActivityType, UserRecosType, UserReview, UserWatchlistType } from './type.db';
+import { FeedType, JSONContent, MediaMovie, MediaPerson, MediaTvSeries, Playlist, PlaylistLike, User, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
 
 type PostgresTables = PostgresSchema['public']['Tables'];
 type PostgresViews = PostgresSchema['public']['Views'];
+type PostgresFunctions = PostgresSchema['public']['Functions'];
 
 // THIS IS THE ONLY THING YOU EDIT
 // <START>
@@ -119,14 +120,44 @@ type ViewExtensions = {
   /* -------------------------------------------------------------------------- */
 
   /* --------------------------------- WIDGETS -------------------------------- */
-  widget_most_recommended: {
-    type: UserRecosType;
-    media: MediaMovie | MediaTvSeries;
-  }
+  widget_most_recommended:
+    | {
+        type: 'movie';
+        media: MediaMovie;
+      }
+    | {
+        type: 'tv_series';
+        media: MediaTvSeries;
+      }
   /* -------------------------------------------------------------------------- */
+};
 
-
-  /* -------------------------------- PLAYLIST -------------------------------- */
+type FunctionExtensions = {
+  get_feed: {
+    activity_type: FeedType;
+    author: User;
+  } & (
+    | {
+        activity_type: 'activity_movie';
+        content: UserActivityMovie;
+      }
+    | {
+        activity_type: 'activity_tv_series';
+        content: UserActivityTvSeries;
+      }
+    | {
+        activity_type: 'playlist_like';
+        content: PlaylistLike;
+      }
+    | {
+        activity_type: 'review_movie_like';
+        content: UserReviewMovieLike;
+      }
+    | {
+        activity_type: 'review_tv_series_like';
+        content: UserReviewTvSeriesLike;
+      }
+  )
 };
 // <END>
 // ☝️ this is the only thing you edit
@@ -175,10 +206,24 @@ type NewViews = {
   };
 };
 
+type NewFunctions = {
+  [K in keyof PostgresFunctions]: {
+    Args: PostgresFunctions[K]['Args'];
+    Returns: K extends keyof FunctionExtensions
+      ? PostgresFunctions[K]['Returns'] extends (infer Row)[]
+        ? Row extends object
+          ? TakeDefinitionFromSecond<Row, FunctionExtensions[K]>[]
+          : PostgresFunctions[K]['Returns']
+        : PostgresFunctions[K]['Returns']
+      : PostgresFunctions[K]['Returns'];
+  };
+};
+
 export type Database = {
-  public: Omit<PostgresSchema['public'], 'Tables' | 'Views'> & {
+  public: Omit<PostgresSchema['public'], 'Tables' | 'Views' | 'Functions'> & {
     Tables: NewTables;
-	Views: NewViews;
+	  Views: NewViews;
+    Functions: NewFunctions;
   };
 };
 
