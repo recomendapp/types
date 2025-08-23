@@ -4128,45 +4128,6 @@ export type Database = {
         }
         Relationships: []
       }
-      feed_content: {
-        Row: {
-          activity_type: Database["public"]["Enums"]["feed_type"] | null
-          content: Json | null
-          created_at: string | null
-          feed_id: number | null
-          user_id: string | null
-        }
-        Insert: {
-          activity_type?: Database["public"]["Enums"]["feed_type"] | null
-          content?: never
-          created_at?: string | null
-          feed_id?: number | null
-          user_id?: string | null
-        }
-        Update: {
-          activity_type?: Database["public"]["Enums"]["feed_type"] | null
-          content?: never
-          created_at?: string | null
-          feed_id?: number | null
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "feed_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profile"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "feed_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       media_movie: {
         Row: {
           backdrop_path: string | null
@@ -4918,25 +4879,6 @@ export type Database = {
           },
         ]
       }
-      user_feed: {
-        Row: {
-          created_at: string | null
-          id: number | null
-          is_liked: boolean | null
-          liked_at: string | null
-          media: Json | null
-          media_id: number | null
-          rated_at: string | null
-          rating: number | null
-          review: Json | null
-          type: string | null
-          updated_at: string | null
-          user: Json | null
-          user_id: string | null
-          watched_date: string | null
-        }
-        Relationships: []
-      }
       user_feed_cast_crew: {
         Row: {
           jobs: string[] | null
@@ -5206,15 +5148,22 @@ export type Database = {
     }
     Functions: {
       delete_avatar: {
-        Args: { avatar_url: string }
+        Args: {
+          avatar_url: string
+        }
         Returns: Record<string, unknown>
       }
       delete_playlist_poster: {
-        Args: { poster_url: string }
+        Args: {
+          poster_url: string
+        }
         Returns: Record<string, unknown>
       }
       delete_storage_object: {
-        Args: { bucket: string; object: string }
+        Args: {
+          bucket: string
+          object: string
+        }
         Returns: Record<string, unknown>
       }
       find_media: {
@@ -5225,7 +5174,10 @@ export type Database = {
         Returns: Json
       }
       get_feed: {
-        Args: { page_limit: number; page_offset: number }
+        Args: {
+          page_limit: number
+          page_offset: number
+        }
         Returns: {
           feed_id: number
           user_id: string
@@ -5291,7 +5243,9 @@ export type Database = {
         }[]
       }
       slugify: {
-        Args: { value: string }
+        Args: {
+          value: string
+        }
         Returns: string
       }
       user_recos_movie_insert: {
@@ -5313,7 +5267,9 @@ export type Database = {
         Returns: undefined
       }
       utils_calculate_vote_average: {
-        Args: { media_id: number }
+        Args: {
+          media_id: number
+        }
         Returns: number
       }
       utils_cancel_email_change: {
@@ -5321,31 +5277,50 @@ export type Database = {
         Returns: Json
       }
       utils_check_playlist_guest: {
-        Args: { p_user_id: string; p_playlist_id: number }
+        Args: {
+          p_user_id: string
+          p_playlist_id: number
+        }
         Returns: boolean
       }
       utils_check_playlist_owner: {
-        Args: { p_user_id: string; p_playlist_id: number }
+        Args: {
+          p_user_id: string
+          p_playlist_id: number
+        }
         Returns: boolean
       }
       utils_check_playlist_privacy: {
-        Args: { p_playlist_id: number }
+        Args: {
+          p_playlist_id: number
+        }
         Returns: boolean
       }
       utils_check_playlist_type: {
-        Args: { p_playlist_id: number; p_expected_type: string }
+        Args: {
+          p_playlist_id: number
+          p_expected_type: string
+        }
         Returns: boolean
       }
       utils_check_user_following: {
-        Args: { p_follower_id: string; p_followee_id: string }
+        Args: {
+          p_follower_id: string
+          p_followee_id: string
+        }
         Returns: boolean
       }
       utils_check_user_friendship: {
-        Args: { user_id_1: string; user_id_2: string }
+        Args: {
+          user_id_1: string
+          user_id_2: string
+        }
         Returns: boolean
       }
       utils_check_user_privacy: {
-        Args: { user_id: string }
+        Args: {
+          user_id: string
+        }
         Returns: boolean
       }
       utils_delete_expired_user_notification_tokens: {
@@ -5357,7 +5332,9 @@ export type Database = {
         Returns: undefined
       }
       utils_generate_username: {
-        Args: { user_details: unknown }
+        Args: {
+          user_details: unknown
+        }
         Returns: string
       }
     }
@@ -5424,29 +5401,27 @@ export type Database = {
   }
 }
 
-type DefaultSchema = Database[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+  PublicTableNameOrOptions extends
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
-  }
-    ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -5454,22 +5429,20 @@ export type Tables<
     : never
 
 export type TablesInsert<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
-  }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -5477,22 +5450,20 @@ export type TablesInsert<
     : never
 
 export type TablesUpdate<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
-  }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -5500,23 +5471,21 @@ export type TablesUpdate<
     : never
 
 export type Enums<
-  DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema["Enums"]
+  PublicEnumNameOrOptions extends
+    | keyof PublicSchema["Enums"]
     | { schema: keyof Database },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof Database
-  }
-    ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema["CompositeTypes"]
+    | keyof PublicSchema["CompositeTypes"]
     | { schema: keyof Database },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof Database
@@ -5525,74 +5494,7 @@ export type CompositeTypes<
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
   ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
-
-export const Constants = {
-  public: {
-    Enums: {
-      eventType: ["INSERT", "DELETE", "UPDATE"],
-      feed_type: [
-        "activity_movie",
-        "activity_tv_series",
-        "review_movie_like",
-        "review_tv_series_like",
-        "playlist_like",
-      ],
-      image_type: ["backdrop", "poster", "logo", "profile"],
-      language_app: ["en-US", "fr-FR"],
-      media_type: ["movie", "tv_series", "person", "tv_season", "tv_episode"],
-      notification_type: [
-        "follower_created",
-        "follower_accepted",
-        "follower_request",
-        "friend_created",
-        "reco_sent",
-        "reco_completed",
-      ],
-      notifications_device_type: ["web", "ios", "android", "windows", "macos"],
-      notifications_provider: ["fcm", "expo", "apns"],
-      playlists_type: ["movie", "tv_series"],
-      pricing_plan_interval: ["day", "week", "month", "year"],
-      pricing_type: ["one_time", "recurring"],
-      reco_status: ["active", "completed", "deleted"],
-      subscription_status: [
-        "trialing",
-        "active",
-        "canceled",
-        "incomplete",
-        "incomplete_expired",
-        "past_due",
-        "unpaid",
-      ],
-      sync_logs_status: [
-        "initialized",
-        "fetching_data",
-        "data_fetched",
-        "syncing_to_db",
-        "updating_popularity",
-        "success",
-        "failed",
-      ],
-      sync_logs_type: [
-        "tmdb_movie",
-        "tmdb_person",
-        "tmdb_collection",
-        "tmdb_keyword",
-        "tmdb_company",
-        "tmdb_language",
-        "tmdb_country",
-        "tmdb_genre",
-        "tmdb_network",
-        "tmdb_tv_serie",
-      ],
-      user_activity_type: ["movie", "tv_series"],
-      user_recos_type: ["movie", "tv_series"],
-      user_review_type: ["movie", "tv_series"],
-      user_watchlist_type: ["movie", "tv_series"],
-      watchlist_status: ["active", "completed"],
-    },
-  },
-} as const
 
