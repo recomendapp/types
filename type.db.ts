@@ -142,10 +142,8 @@ export type PlaylistType = Database['public']['Enums']['playlists_type'];
 
 /* ---------------------------------- FEED ---------------------------------- */
 export type FeedType = Database['public']['Enums']['feed_type'];
-
-export type UserFeed = Database['public']['Views']['user_feed']['Row'] & {
+export type UserFeed = Database['public']['Functions']['get_feed']['Returns'] & {
 };
-
 export type UserFeedCastCrew = Database['public']['Views']['user_feed_cast_crew']['Row'] & {
 	movie?: MediaMovie;
 	person?: MediaPerson;
