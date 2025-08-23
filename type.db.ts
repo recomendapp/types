@@ -184,4 +184,6 @@ export type JSONContent = {
 };
 
 export type EventType = Database['public']['Enums']['eventType'];
+
+export type ViewType = 'grid' | 'list';
 /* -------------------------------------------------------------------------- */
