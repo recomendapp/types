@@ -16,6 +16,55 @@ export declare const userSearchQuerySchema: z.ZodObject<{
     per_page?: number | undefined;
     exclude_ids?: string | undefined;
 }>;
+export declare const userSchema: z.ZodObject<{
+    id: z.ZodString;
+    username: z.ZodString;
+    username_updated_at: z.ZodNullable<z.ZodString>;
+    full_name: z.ZodString;
+    bio: z.ZodNullable<z.ZodString>;
+    avatar_url: z.ZodNullable<z.ZodString>;
+    website: z.ZodNullable<z.ZodString>;
+    favorite_color: z.ZodNullable<z.ZodString>;
+    followers_count: z.ZodNumber;
+    following_count: z.ZodNumber;
+    created_at: z.ZodString;
+    background_url: z.ZodNullable<z.ZodString>;
+    premium: z.ZodBoolean;
+    language: z.ZodString;
+    private: z.ZodBoolean;
+}, "strip", z.ZodTypeAny, {
+    id: string;
+    created_at: string;
+    private: boolean;
+    username: string;
+    username_updated_at: string | null;
+    full_name: string;
+    bio: string | null;
+    avatar_url: string | null;
+    website: string | null;
+    favorite_color: string | null;
+    followers_count: number;
+    following_count: number;
+    background_url: string | null;
+    premium: boolean;
+    language: string;
+}, {
+    id: string;
+    created_at: string;
+    private: boolean;
+    username: string;
+    username_updated_at: string | null;
+    full_name: string;
+    bio: string | null;
+    avatar_url: string | null;
+    website: string | null;
+    favorite_color: string | null;
+    followers_count: number;
+    following_count: number;
+    background_url: string | null;
+    premium: boolean;
+    language: string;
+}>;
 export declare const userSearchResponseSchema: z.ZodObject<{
     data: z.ZodArray<z.ZodObject<{
         id: z.ZodString;
@@ -36,8 +85,8 @@ export declare const userSearchResponseSchema: z.ZodObject<{
     }, "strip", z.ZodTypeAny, {
         id: string;
         created_at: string;
-        username: string;
         private: boolean;
+        username: string;
         username_updated_at: string | null;
         full_name: string;
         bio: string | null;
@@ -52,8 +101,8 @@ export declare const userSearchResponseSchema: z.ZodObject<{
     }, {
         id: string;
         created_at: string;
-        username: string;
         private: boolean;
+        username: string;
         username_updated_at: string | null;
         full_name: string;
         bio: string | null;
@@ -86,8 +135,8 @@ export declare const userSearchResponseSchema: z.ZodObject<{
     data: {
         id: string;
         created_at: string;
-        username: string;
         private: boolean;
+        username: string;
         username_updated_at: string | null;
         full_name: string;
         bio: string | null;
@@ -110,8 +159,8 @@ export declare const userSearchResponseSchema: z.ZodObject<{
     data: {
         id: string;
         created_at: string;
-        username: string;
         private: boolean;
+        username: string;
         username_updated_at: string | null;
         full_name: string;
         bio: string | null;

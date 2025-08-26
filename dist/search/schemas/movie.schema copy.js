@@ -11,8 +11,8 @@ const filterableFieldsSchema = zod_1.z.object({
     genre_ids: zod_1.z.string().optional(),
     runtime_min: zod_1.z.coerce.number().int().min(0).optional(),
     runtime_max: zod_1.z.coerce.number().int().min(0).optional(),
-    release_date_min: zod_1.z.coerce.number().int().optional(),
-    release_date_max: zod_1.z.coerce.number().int().optional(),
+    release_date_start: zod_1.z.coerce.number().int().optional(),
+    release_date_end: zod_1.z.coerce.number().int().optional(),
 });
 exports.movieSearchQuerySchema = common_1.querySchema
     .extend(common_1.paginationQuerySchema.shape)
@@ -47,4 +47,4 @@ exports.movieSchema = zod_1.z.object({
     follower_avg_rating: zod_1.z.number().nullable()
 });
 exports.movieSearchResponseSchema = (0, common_1.createPaginatedResponseSchema)(exports.movieSchema);
-//# sourceMappingURL=movie.schema.js.map
+//# sourceMappingURL=movie.schema%20copy.js.map

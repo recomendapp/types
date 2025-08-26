@@ -10,28 +10,28 @@ export declare const movieSearchQuerySchema: z.ZodObject<{
     genre_ids: z.ZodOptional<z.ZodString>;
     runtime_min: z.ZodOptional<z.ZodNumber>;
     runtime_max: z.ZodOptional<z.ZodNumber>;
-    release_date_min: z.ZodOptional<z.ZodNumber>;
-    release_date_max: z.ZodOptional<z.ZodNumber>;
+    release_date_start: z.ZodOptional<z.ZodNumber>;
+    release_date_end: z.ZodOptional<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
     query: string;
-    sort_by: "popularity";
     page: number;
     per_page: number;
+    sort_by: "popularity";
     genre_ids?: string | undefined;
     runtime_min?: number | undefined;
     runtime_max?: number | undefined;
-    release_date_min?: number | undefined;
-    release_date_max?: number | undefined;
+    release_date_start?: number | undefined;
+    release_date_end?: number | undefined;
 }, {
     query: string;
-    sort_by?: "popularity" | undefined;
     page?: number | undefined;
     per_page?: number | undefined;
+    sort_by?: "popularity" | undefined;
     genre_ids?: string | undefined;
     runtime_min?: number | undefined;
     runtime_max?: number | undefined;
-    release_date_min?: number | undefined;
-    release_date_max?: number | undefined;
+    release_date_start?: number | undefined;
+    release_date_end?: number | undefined;
 }>;
 export declare const movieSchema: z.ZodObject<{
     id: z.ZodNumber;
@@ -118,14 +118,14 @@ export declare const movieSchema: z.ZodObject<{
     status: string | null;
     popularity: number | null;
     id: number;
-    url: string | null;
-    slug: string | null;
-    homepage: string | null;
     title: string;
     poster_path: string | null;
     poster_url: string | null;
     backdrop_path: string | null;
     backdrop_url: string | null;
+    url: string | null;
+    slug: string | null;
+    homepage: string | null;
     directors: {
         popularity: number | null;
         id: number;
@@ -161,14 +161,14 @@ export declare const movieSchema: z.ZodObject<{
     status: string | null;
     popularity: number | null;
     id: number;
-    url: string | null;
-    slug: string | null;
-    homepage: string | null;
     title: string;
     poster_path: string | null;
     poster_url: string | null;
     backdrop_path: string | null;
     backdrop_url: string | null;
+    url: string | null;
+    slug: string | null;
+    homepage: string | null;
     directors: {
         popularity: number | null;
         id: number;
@@ -287,14 +287,14 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
         status: string | null;
         popularity: number | null;
         id: number;
-        url: string | null;
-        slug: string | null;
-        homepage: string | null;
         title: string;
         poster_path: string | null;
         poster_url: string | null;
         backdrop_path: string | null;
         backdrop_url: string | null;
+        url: string | null;
+        slug: string | null;
+        homepage: string | null;
         directors: {
             popularity: number | null;
             id: number;
@@ -330,14 +330,14 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
         status: string | null;
         popularity: number | null;
         id: number;
-        url: string | null;
-        slug: string | null;
-        homepage: string | null;
         title: string;
         poster_path: string | null;
         poster_url: string | null;
         backdrop_path: string | null;
         backdrop_url: string | null;
+        url: string | null;
+        slug: string | null;
+        homepage: string | null;
         directors: {
             popularity: number | null;
             id: number;
@@ -391,14 +391,14 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
         status: string | null;
         popularity: number | null;
         id: number;
-        url: string | null;
-        slug: string | null;
-        homepage: string | null;
         title: string;
         poster_path: string | null;
         poster_url: string | null;
         backdrop_path: string | null;
         backdrop_url: string | null;
+        url: string | null;
+        slug: string | null;
+        homepage: string | null;
         directors: {
             popularity: number | null;
             id: number;
@@ -442,14 +442,14 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
         status: string | null;
         popularity: number | null;
         id: number;
-        url: string | null;
-        slug: string | null;
-        homepage: string | null;
         title: string;
         poster_path: string | null;
         poster_url: string | null;
         backdrop_path: string | null;
         backdrop_url: string | null;
+        url: string | null;
+        slug: string | null;
+        homepage: string | null;
         directors: {
             popularity: number | null;
             id: number;
@@ -490,4 +490,4 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
     };
 }>;
 export type MovieSearchQuery = z.infer<typeof movieSearchQuerySchema>;
-//# sourceMappingURL=movie.schema.d.ts.map
+//# sourceMappingURL=movie.schema%20copy.d.ts.map

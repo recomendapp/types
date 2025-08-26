@@ -9,7 +9,7 @@ export const playlistSearchQuerySchema = querySchema
 	.extend(paginationQuerySchema.shape)
 	.extend(sortableFieldsSchema.shape);
 
-export const playlistSearchResponseSchema = createPaginatedResponseSchema(z.object({
+export const playlistSchema = z.object({
 	id: z.number().int(),
 	created_at: z.string(),
 	updated_at: z.string(),
@@ -21,6 +21,8 @@ export const playlistSearchResponseSchema = createPaginatedResponseSchema(z.obje
 	items_count: z.number().min(0),
 	saved_count: z.number().min(0),
 	likes_count: z.number().min(0),
-}));
+});
+
+export const playlistSearchResponseSchema = createPaginatedResponseSchema(playlistSchema);
 
 export type PlaylistSearchQuery = z.infer<typeof playlistSearchQuerySchema>;

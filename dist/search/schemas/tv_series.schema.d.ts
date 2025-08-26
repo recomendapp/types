@@ -1,5 +1,5 @@
 import { z } from 'zod';
-export declare const movieSearchQuerySchema: z.ZodObject<{
+export declare const tvSeriesSearchQuerySchema: z.ZodObject<{
     query: z.ZodString;
 } & {
     page: z.ZodDefault<z.ZodNumber>;
@@ -8,39 +8,51 @@ export declare const movieSearchQuerySchema: z.ZodObject<{
     sort_by: z.ZodDefault<z.ZodEnum<["popularity"]>>;
 } & {
     genre_ids: z.ZodOptional<z.ZodString>;
-    runtime_min: z.ZodOptional<z.ZodNumber>;
-    runtime_max: z.ZodOptional<z.ZodNumber>;
-    release_date_min: z.ZodOptional<z.ZodNumber>;
-    release_date_max: z.ZodOptional<z.ZodNumber>;
+    number_of_seasons_min: z.ZodOptional<z.ZodNumber>;
+    number_of_seasons_max: z.ZodOptional<z.ZodNumber>;
+    number_of_episodes_min: z.ZodOptional<z.ZodNumber>;
+    number_of_episodes_max: z.ZodOptional<z.ZodNumber>;
+    vote_average_min: z.ZodOptional<z.ZodNumber>;
+    vote_average_max: z.ZodOptional<z.ZodNumber>;
+    first_air_date_min: z.ZodOptional<z.ZodNumber>;
+    first_air_date_max: z.ZodOptional<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
     query: string;
     sort_by: "popularity";
     page: number;
     per_page: number;
     genre_ids?: string | undefined;
-    runtime_min?: number | undefined;
-    runtime_max?: number | undefined;
-    release_date_min?: number | undefined;
-    release_date_max?: number | undefined;
+    number_of_seasons_min?: number | undefined;
+    number_of_seasons_max?: number | undefined;
+    number_of_episodes_min?: number | undefined;
+    number_of_episodes_max?: number | undefined;
+    vote_average_min?: number | undefined;
+    vote_average_max?: number | undefined;
+    first_air_date_min?: number | undefined;
+    first_air_date_max?: number | undefined;
 }, {
     query: string;
     sort_by?: "popularity" | undefined;
     page?: number | undefined;
     per_page?: number | undefined;
     genre_ids?: string | undefined;
-    runtime_min?: number | undefined;
-    runtime_max?: number | undefined;
-    release_date_min?: number | undefined;
-    release_date_max?: number | undefined;
+    number_of_seasons_min?: number | undefined;
+    number_of_seasons_max?: number | undefined;
+    number_of_episodes_min?: number | undefined;
+    number_of_episodes_max?: number | undefined;
+    vote_average_min?: number | undefined;
+    vote_average_max?: number | undefined;
+    first_air_date_min?: number | undefined;
+    first_air_date_max?: number | undefined;
 }>;
-export declare const movieSchema: z.ZodObject<{
+export declare const tvSeriesSchema: z.ZodObject<{
     id: z.ZodNumber;
-    title: z.ZodString;
+    name: z.ZodString;
     poster_path: z.ZodNullable<z.ZodString>;
     poster_url: z.ZodNullable<z.ZodString>;
     backdrop_path: z.ZodNullable<z.ZodString>;
     backdrop_url: z.ZodNullable<z.ZodString>;
-    directors: z.ZodNullable<z.ZodArray<z.ZodObject<{
+    created_by: z.ZodNullable<z.ZodArray<z.ZodObject<{
         id: z.ZodNumber;
         url: z.ZodString;
         name: z.ZodString;
@@ -99,15 +111,16 @@ export declare const movieSchema: z.ZodObject<{
         id: number;
         name: string;
     }>, "many">>;
-    release_date: z.ZodNullable<z.ZodString>;
+    first_air_date: z.ZodNullable<z.ZodString>;
+    last_air_date: z.ZodNullable<z.ZodString>;
     overview: z.ZodNullable<z.ZodString>;
-    budget: z.ZodNullable<z.ZodNumber>;
-    homepage: z.ZodNullable<z.ZodString>;
-    revenue: z.ZodNullable<z.ZodNumber>;
-    runtime: z.ZodNullable<z.ZodNumber>;
+    number_of_episodes: z.ZodNullable<z.ZodNumber>;
+    number_of_seasons: z.ZodNullable<z.ZodNumber>;
+    in_production: z.ZodNullable<z.ZodBoolean>;
     original_language: z.ZodNullable<z.ZodString>;
-    original_title: z.ZodNullable<z.ZodString>;
+    original_name: z.ZodNullable<z.ZodString>;
     status: z.ZodNullable<z.ZodString>;
+    type: z.ZodNullable<z.ZodString>;
     popularity: z.ZodNullable<z.ZodNumber>;
     vote_average: z.ZodNullable<z.ZodNumber>;
     vote_count: z.ZodNullable<z.ZodNumber>;
@@ -115,18 +128,27 @@ export declare const movieSchema: z.ZodObject<{
     url: z.ZodNullable<z.ZodString>;
     follower_avg_rating: z.ZodNullable<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
+    type: string | null;
     status: string | null;
     popularity: number | null;
     id: number;
     url: string | null;
+    name: string;
     slug: string | null;
-    homepage: string | null;
-    title: string;
     poster_path: string | null;
     poster_url: string | null;
     backdrop_path: string | null;
     backdrop_url: string | null;
-    directors: {
+    genres: {
+        id: number;
+        name: string;
+    }[] | null;
+    overview: string | null;
+    original_language: string | null;
+    vote_average: number | null;
+    vote_count: number | null;
+    follower_avg_rating: number | null;
+    created_by: {
         popularity: number | null;
         id: number;
         url: string;
@@ -143,33 +165,34 @@ export declare const movieSchema: z.ZodObject<{
         place_of_birth: string | null;
         known_for_department: string | null;
     }[] | null;
-    genres: {
-        id: number;
-        name: string;
-    }[] | null;
-    release_date: string | null;
-    overview: string | null;
-    budget: number | null;
-    revenue: number | null;
-    runtime: number | null;
-    original_language: string | null;
-    original_title: string | null;
-    vote_average: number | null;
-    vote_count: number | null;
-    follower_avg_rating: number | null;
+    first_air_date: string | null;
+    last_air_date: string | null;
+    number_of_episodes: number | null;
+    number_of_seasons: number | null;
+    in_production: boolean | null;
+    original_name: string | null;
 }, {
+    type: string | null;
     status: string | null;
     popularity: number | null;
     id: number;
     url: string | null;
+    name: string;
     slug: string | null;
-    homepage: string | null;
-    title: string;
     poster_path: string | null;
     poster_url: string | null;
     backdrop_path: string | null;
     backdrop_url: string | null;
-    directors: {
+    genres: {
+        id: number;
+        name: string;
+    }[] | null;
+    overview: string | null;
+    original_language: string | null;
+    vote_average: number | null;
+    vote_count: number | null;
+    follower_avg_rating: number | null;
+    created_by: {
         popularity: number | null;
         id: number;
         url: string;
@@ -186,30 +209,22 @@ export declare const movieSchema: z.ZodObject<{
         place_of_birth: string | null;
         known_for_department: string | null;
     }[] | null;
-    genres: {
-        id: number;
-        name: string;
-    }[] | null;
-    release_date: string | null;
-    overview: string | null;
-    budget: number | null;
-    revenue: number | null;
-    runtime: number | null;
-    original_language: string | null;
-    original_title: string | null;
-    vote_average: number | null;
-    vote_count: number | null;
-    follower_avg_rating: number | null;
+    first_air_date: string | null;
+    last_air_date: string | null;
+    number_of_episodes: number | null;
+    number_of_seasons: number | null;
+    in_production: boolean | null;
+    original_name: string | null;
 }>;
-export declare const movieSearchResponseSchema: z.ZodObject<{
+export declare const tvSeriesSearchResponseSchema: z.ZodObject<{
     data: z.ZodArray<z.ZodObject<{
         id: z.ZodNumber;
-        title: z.ZodString;
+        name: z.ZodString;
         poster_path: z.ZodNullable<z.ZodString>;
         poster_url: z.ZodNullable<z.ZodString>;
         backdrop_path: z.ZodNullable<z.ZodString>;
         backdrop_url: z.ZodNullable<z.ZodString>;
-        directors: z.ZodNullable<z.ZodArray<z.ZodObject<{
+        created_by: z.ZodNullable<z.ZodArray<z.ZodObject<{
             id: z.ZodNumber;
             url: z.ZodString;
             name: z.ZodString;
@@ -268,15 +283,16 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
             id: number;
             name: string;
         }>, "many">>;
-        release_date: z.ZodNullable<z.ZodString>;
+        first_air_date: z.ZodNullable<z.ZodString>;
+        last_air_date: z.ZodNullable<z.ZodString>;
         overview: z.ZodNullable<z.ZodString>;
-        budget: z.ZodNullable<z.ZodNumber>;
-        homepage: z.ZodNullable<z.ZodString>;
-        revenue: z.ZodNullable<z.ZodNumber>;
-        runtime: z.ZodNullable<z.ZodNumber>;
+        number_of_episodes: z.ZodNullable<z.ZodNumber>;
+        number_of_seasons: z.ZodNullable<z.ZodNumber>;
+        in_production: z.ZodNullable<z.ZodBoolean>;
         original_language: z.ZodNullable<z.ZodString>;
-        original_title: z.ZodNullable<z.ZodString>;
+        original_name: z.ZodNullable<z.ZodString>;
         status: z.ZodNullable<z.ZodString>;
+        type: z.ZodNullable<z.ZodString>;
         popularity: z.ZodNullable<z.ZodNumber>;
         vote_average: z.ZodNullable<z.ZodNumber>;
         vote_count: z.ZodNullable<z.ZodNumber>;
@@ -284,18 +300,27 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
         url: z.ZodNullable<z.ZodString>;
         follower_avg_rating: z.ZodNullable<z.ZodNumber>;
     }, "strip", z.ZodTypeAny, {
+        type: string | null;
         status: string | null;
         popularity: number | null;
         id: number;
         url: string | null;
+        name: string;
         slug: string | null;
-        homepage: string | null;
-        title: string;
         poster_path: string | null;
         poster_url: string | null;
         backdrop_path: string | null;
         backdrop_url: string | null;
-        directors: {
+        genres: {
+            id: number;
+            name: string;
+        }[] | null;
+        overview: string | null;
+        original_language: string | null;
+        vote_average: number | null;
+        vote_count: number | null;
+        follower_avg_rating: number | null;
+        created_by: {
             popularity: number | null;
             id: number;
             url: string;
@@ -312,33 +337,34 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
             place_of_birth: string | null;
             known_for_department: string | null;
         }[] | null;
-        genres: {
-            id: number;
-            name: string;
-        }[] | null;
-        release_date: string | null;
-        overview: string | null;
-        budget: number | null;
-        revenue: number | null;
-        runtime: number | null;
-        original_language: string | null;
-        original_title: string | null;
-        vote_average: number | null;
-        vote_count: number | null;
-        follower_avg_rating: number | null;
+        first_air_date: string | null;
+        last_air_date: string | null;
+        number_of_episodes: number | null;
+        number_of_seasons: number | null;
+        in_production: boolean | null;
+        original_name: string | null;
     }, {
+        type: string | null;
         status: string | null;
         popularity: number | null;
         id: number;
         url: string | null;
+        name: string;
         slug: string | null;
-        homepage: string | null;
-        title: string;
         poster_path: string | null;
         poster_url: string | null;
         backdrop_path: string | null;
         backdrop_url: string | null;
-        directors: {
+        genres: {
+            id: number;
+            name: string;
+        }[] | null;
+        overview: string | null;
+        original_language: string | null;
+        vote_average: number | null;
+        vote_count: number | null;
+        follower_avg_rating: number | null;
+        created_by: {
             popularity: number | null;
             id: number;
             url: string;
@@ -355,20 +381,12 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
             place_of_birth: string | null;
             known_for_department: string | null;
         }[] | null;
-        genres: {
-            id: number;
-            name: string;
-        }[] | null;
-        release_date: string | null;
-        overview: string | null;
-        budget: number | null;
-        revenue: number | null;
-        runtime: number | null;
-        original_language: string | null;
-        original_title: string | null;
-        vote_average: number | null;
-        vote_count: number | null;
-        follower_avg_rating: number | null;
+        first_air_date: string | null;
+        last_air_date: string | null;
+        number_of_episodes: number | null;
+        number_of_seasons: number | null;
+        in_production: boolean | null;
+        original_name: string | null;
     }>, "many">;
     pagination: z.ZodObject<{
         total_results: z.ZodNumber;
@@ -388,18 +406,27 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
     }>;
 }, "strip", z.ZodTypeAny, {
     data: {
+        type: string | null;
         status: string | null;
         popularity: number | null;
         id: number;
         url: string | null;
+        name: string;
         slug: string | null;
-        homepage: string | null;
-        title: string;
         poster_path: string | null;
         poster_url: string | null;
         backdrop_path: string | null;
         backdrop_url: string | null;
-        directors: {
+        genres: {
+            id: number;
+            name: string;
+        }[] | null;
+        overview: string | null;
+        original_language: string | null;
+        vote_average: number | null;
+        vote_count: number | null;
+        follower_avg_rating: number | null;
+        created_by: {
             popularity: number | null;
             id: number;
             url: string;
@@ -416,20 +443,12 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
             place_of_birth: string | null;
             known_for_department: string | null;
         }[] | null;
-        genres: {
-            id: number;
-            name: string;
-        }[] | null;
-        release_date: string | null;
-        overview: string | null;
-        budget: number | null;
-        revenue: number | null;
-        runtime: number | null;
-        original_language: string | null;
-        original_title: string | null;
-        vote_average: number | null;
-        vote_count: number | null;
-        follower_avg_rating: number | null;
+        first_air_date: string | null;
+        last_air_date: string | null;
+        number_of_episodes: number | null;
+        number_of_seasons: number | null;
+        in_production: boolean | null;
+        original_name: string | null;
     }[];
     pagination: {
         per_page: number;
@@ -439,18 +458,27 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
     };
 }, {
     data: {
+        type: string | null;
         status: string | null;
         popularity: number | null;
         id: number;
         url: string | null;
+        name: string;
         slug: string | null;
-        homepage: string | null;
-        title: string;
         poster_path: string | null;
         poster_url: string | null;
         backdrop_path: string | null;
         backdrop_url: string | null;
-        directors: {
+        genres: {
+            id: number;
+            name: string;
+        }[] | null;
+        overview: string | null;
+        original_language: string | null;
+        vote_average: number | null;
+        vote_count: number | null;
+        follower_avg_rating: number | null;
+        created_by: {
             popularity: number | null;
             id: number;
             url: string;
@@ -467,20 +495,12 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
             place_of_birth: string | null;
             known_for_department: string | null;
         }[] | null;
-        genres: {
-            id: number;
-            name: string;
-        }[] | null;
-        release_date: string | null;
-        overview: string | null;
-        budget: number | null;
-        revenue: number | null;
-        runtime: number | null;
-        original_language: string | null;
-        original_title: string | null;
-        vote_average: number | null;
-        vote_count: number | null;
-        follower_avg_rating: number | null;
+        first_air_date: string | null;
+        last_air_date: string | null;
+        number_of_episodes: number | null;
+        number_of_seasons: number | null;
+        in_production: boolean | null;
+        original_name: string | null;
     }[];
     pagination: {
         per_page: number;
@@ -489,5 +509,5 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
         current_page: number;
     };
 }>;
-export type MovieSearchQuery = z.infer<typeof movieSearchQuerySchema>;
-//# sourceMappingURL=movie.schema.d.ts.map
+export type TvSeriesSearchQuery = z.infer<typeof tvSeriesSearchQuerySchema>;
+//# sourceMappingURL=tv_series.schema.d.ts.map

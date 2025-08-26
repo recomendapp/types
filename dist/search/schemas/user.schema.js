@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userSearchResponseSchema = exports.userSearchQuerySchema = void 0;
+exports.userSearchResponseSchema = exports.userSchema = exports.userSearchQuerySchema = void 0;
 const zod_1 = require("zod");
 const common_1 = require("./common");
 exports.userSearchQuerySchema = common_1.querySchema.extend({
     ...common_1.paginationQuerySchema.shape,
     exclude_ids: zod_1.z.string().optional()
 });
-exports.userSearchResponseSchema = (0, common_1.createPaginatedResponseSchema)(zod_1.z.object({
+exports.userSchema = zod_1.z.object({
     id: zod_1.z.string(),
     username: zod_1.z.string(),
     username_updated_at: zod_1.z.string().nullable(),
@@ -23,5 +23,6 @@ exports.userSearchResponseSchema = (0, common_1.createPaginatedResponseSchema)(z
     premium: zod_1.z.boolean(),
     language: zod_1.z.string(),
     private: zod_1.z.boolean(),
-}));
+});
+exports.userSearchResponseSchema = (0, common_1.createPaginatedResponseSchema)(exports.userSchema);
 //# sourceMappingURL=user.schema.js.map

@@ -16,6 +16,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./common"), exports);
 __exportStar(require("./movie.schema"), exports);
+__exportStar(require("./tv_series.schema"), exports);
+__exportStar(require("./person.schema"), exports);
 __exportStar(require("./playlist.schema"), exports);
 __exportStar(require("./user.schema"), exports);
+__exportStar(require("./all.schema"), exports);
 //# sourceMappingURL=index.js.map

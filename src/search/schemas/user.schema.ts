@@ -6,7 +6,7 @@ export const userSearchQuerySchema = querySchema.extend({
 	exclude_ids: z.string().optional()
 });
 
-export const userSearchResponseSchema = createPaginatedResponseSchema(z.object({
+export const userSchema = z.object({
 	id: z.string(),
 	username: z.string(),
 	username_updated_at: z.string().nullable(),
@@ -22,6 +22,8 @@ export const userSearchResponseSchema = createPaginatedResponseSchema(z.object({
 	premium: z.boolean(),
 	language: z.string(),
 	private: z.boolean(),
-}));
+});
+
+export const userSearchResponseSchema = createPaginatedResponseSchema(userSchema);
 
 export type UserSearchQuery = z.infer<typeof userSearchQuerySchema>;

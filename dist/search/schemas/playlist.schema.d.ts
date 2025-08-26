@@ -8,14 +8,51 @@ export declare const playlistSearchQuerySchema: z.ZodObject<{
     sort_by: z.ZodDefault<z.ZodEnum<["created_at", "updated_at", "likes_count", "items_count"]>>;
 }, "strip", z.ZodTypeAny, {
     query: string;
+    sort_by: "created_at" | "updated_at" | "likes_count" | "items_count";
     page: number;
     per_page: number;
-    sort_by: "created_at" | "likes_count" | "updated_at" | "items_count";
 }, {
     query: string;
+    sort_by?: "created_at" | "updated_at" | "likes_count" | "items_count" | undefined;
     page?: number | undefined;
     per_page?: number | undefined;
-    sort_by?: "created_at" | "likes_count" | "updated_at" | "items_count" | undefined;
+}>;
+export declare const playlistSchema: z.ZodObject<{
+    id: z.ZodNumber;
+    created_at: z.ZodString;
+    updated_at: z.ZodString;
+    user_id: z.ZodString;
+    title: z.ZodString;
+    description: z.ZodNullable<z.ZodString>;
+    poster_url: z.ZodNullable<z.ZodString>;
+    private: z.ZodBoolean;
+    items_count: z.ZodNumber;
+    saved_count: z.ZodNumber;
+    likes_count: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    id: number;
+    title: string;
+    poster_url: string | null;
+    created_at: string;
+    updated_at: string;
+    likes_count: number;
+    items_count: number;
+    user_id: string;
+    description: string | null;
+    private: boolean;
+    saved_count: number;
+}, {
+    id: number;
+    title: string;
+    poster_url: string | null;
+    created_at: string;
+    updated_at: string;
+    likes_count: number;
+    items_count: number;
+    user_id: string;
+    description: string | null;
+    private: boolean;
+    saved_count: number;
 }>;
 export declare const playlistSearchResponseSchema: z.ZodObject<{
     data: z.ZodArray<z.ZodObject<{
@@ -31,26 +68,26 @@ export declare const playlistSearchResponseSchema: z.ZodObject<{
         saved_count: z.ZodNumber;
         likes_count: z.ZodNumber;
     }, "strip", z.ZodTypeAny, {
-        user_id: string;
         id: number;
-        poster_url: string | null;
         title: string;
+        poster_url: string | null;
         created_at: string;
-        likes_count: number;
         updated_at: string;
+        likes_count: number;
         items_count: number;
+        user_id: string;
         description: string | null;
         private: boolean;
         saved_count: number;
     }, {
-        user_id: string;
         id: number;
-        poster_url: string | null;
         title: string;
+        poster_url: string | null;
         created_at: string;
-        likes_count: number;
         updated_at: string;
+        likes_count: number;
         items_count: number;
+        user_id: string;
         description: string | null;
         private: boolean;
         saved_count: number;
@@ -73,14 +110,14 @@ export declare const playlistSearchResponseSchema: z.ZodObject<{
     }>;
 }, "strip", z.ZodTypeAny, {
     data: {
-        user_id: string;
         id: number;
-        poster_url: string | null;
         title: string;
+        poster_url: string | null;
         created_at: string;
-        likes_count: number;
         updated_at: string;
+        likes_count: number;
         items_count: number;
+        user_id: string;
         description: string | null;
         private: boolean;
         saved_count: number;
@@ -93,14 +130,14 @@ export declare const playlistSearchResponseSchema: z.ZodObject<{
     };
 }, {
     data: {
-        user_id: string;
         id: number;
-        poster_url: string | null;
         title: string;
+        poster_url: string | null;
         created_at: string;
-        likes_count: number;
         updated_at: string;
+        likes_count: number;
         items_count: number;
+        user_id: string;
         description: string | null;
         private: boolean;
         saved_count: number;
