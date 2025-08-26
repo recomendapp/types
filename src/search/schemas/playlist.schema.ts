@@ -1,6 +1,5 @@
 import { z } from 'zod';
-import { createPaginatedResponseSchema, paginationQuerySchema } from './common/pagination.schema';
-import { querySchema } from './common/query.schema';
+import { querySchema, createPaginatedResponseSchema, paginationQuerySchema } from './common';
 
 const sortableFieldsSchema = z.object({
 	sort_by: z.enum(['created_at', 'updated_at', 'likes_count', 'items_count']).default('created_at'),

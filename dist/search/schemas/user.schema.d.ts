@@ -6,9 +6,9 @@ export declare const userSearchQuerySchema: z.ZodObject<{
     page: z.ZodDefault<z.ZodNumber>;
     per_page: z.ZodDefault<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
+    query: string;
     page: number;
     per_page: number;
-    query: string;
     exclude_ids?: string | undefined;
 }, {
     query: string;
@@ -37,6 +37,7 @@ export declare const userSearchResponseSchema: z.ZodObject<{
         id: string;
         created_at: string;
         username: string;
+        private: boolean;
         username_updated_at: string | null;
         full_name: string;
         bio: string | null;
@@ -48,11 +49,11 @@ export declare const userSearchResponseSchema: z.ZodObject<{
         background_url: string | null;
         premium: boolean;
         language: string;
-        private: boolean;
     }, {
         id: string;
         created_at: string;
         username: string;
+        private: boolean;
         username_updated_at: string | null;
         full_name: string;
         bio: string | null;
@@ -64,7 +65,6 @@ export declare const userSearchResponseSchema: z.ZodObject<{
         background_url: string | null;
         premium: boolean;
         language: string;
-        private: boolean;
     }>, "many">;
     pagination: z.ZodObject<{
         total_results: z.ZodNumber;
@@ -87,6 +87,7 @@ export declare const userSearchResponseSchema: z.ZodObject<{
         id: string;
         created_at: string;
         username: string;
+        private: boolean;
         username_updated_at: string | null;
         full_name: string;
         bio: string | null;
@@ -98,7 +99,6 @@ export declare const userSearchResponseSchema: z.ZodObject<{
         background_url: string | null;
         premium: boolean;
         language: string;
-        private: boolean;
     }[];
     pagination: {
         per_page: number;
@@ -111,6 +111,7 @@ export declare const userSearchResponseSchema: z.ZodObject<{
         id: string;
         created_at: string;
         username: string;
+        private: boolean;
         username_updated_at: string | null;
         full_name: string;
         bio: string | null;
@@ -122,7 +123,6 @@ export declare const userSearchResponseSchema: z.ZodObject<{
         background_url: string | null;
         premium: boolean;
         language: string;
-        private: boolean;
     }[];
     pagination: {
         per_page: number;

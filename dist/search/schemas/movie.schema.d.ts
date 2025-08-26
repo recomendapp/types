@@ -13,9 +13,9 @@ export declare const movieSearchQuerySchema: z.ZodObject<{
     release_date_start: z.ZodOptional<z.ZodNumber>;
     release_date_end: z.ZodOptional<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
+    query: string;
     page: number;
     per_page: number;
-    query: string;
     sort_by: "popularity";
     genre_ids?: string | undefined;
     runtime_min?: number | undefined;

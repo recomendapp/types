@@ -1,6 +1,5 @@
 import { z } from 'zod';
-import { createPaginatedResponseSchema, paginationQuerySchema } from './common/pagination.schema';
-import { querySchema } from './common/query.schema';
+import { querySchema, createPaginatedResponseSchema, paginationQuerySchema } from './common';
 
 export const userSearchQuerySchema = querySchema.extend({
 	...paginationQuerySchema.shape,

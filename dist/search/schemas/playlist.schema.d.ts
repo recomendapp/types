@@ -7,9 +7,9 @@ export declare const playlistSearchQuerySchema: z.ZodObject<{
 } & {
     sort_by: z.ZodDefault<z.ZodEnum<["created_at", "updated_at", "likes_count", "items_count"]>>;
 }, "strip", z.ZodTypeAny, {
+    query: string;
     page: number;
     per_page: number;
-    query: string;
     sort_by: "created_at" | "likes_count" | "updated_at" | "items_count";
 }, {
     query: string;
@@ -38,9 +38,9 @@ export declare const playlistSearchResponseSchema: z.ZodObject<{
         created_at: string;
         likes_count: number;
         updated_at: string;
-        private: boolean;
         items_count: number;
         description: string | null;
+        private: boolean;
         saved_count: number;
     }, {
         user_id: string;
@@ -50,9 +50,9 @@ export declare const playlistSearchResponseSchema: z.ZodObject<{
         created_at: string;
         likes_count: number;
         updated_at: string;
-        private: boolean;
         items_count: number;
         description: string | null;
+        private: boolean;
         saved_count: number;
     }>, "many">;
     pagination: z.ZodObject<{
@@ -80,9 +80,9 @@ export declare const playlistSearchResponseSchema: z.ZodObject<{
         created_at: string;
         likes_count: number;
         updated_at: string;
-        private: boolean;
         items_count: number;
         description: string | null;
+        private: boolean;
         saved_count: number;
     }[];
     pagination: {
@@ -100,9 +100,9 @@ export declare const playlistSearchResponseSchema: z.ZodObject<{
         created_at: string;
         likes_count: number;
         updated_at: string;
-        private: boolean;
         items_count: number;
         description: string | null;
+        private: boolean;
         saved_count: number;
     }[];
     pagination: {
