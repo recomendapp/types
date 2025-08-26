@@ -56,3 +56,4 @@ export const tvSeriesSchema = z.object({
 export const tvSeriesSearchResponseSchema = createPaginatedResponseSchema(tvSeriesSchema);
 
 export type TvSeriesSearchQuery = z.infer<typeof tvSeriesSearchQuerySchema>;
+export type TvSeriesSearchResponse = z.infer<typeof tvSeriesSearchResponseSchema>;

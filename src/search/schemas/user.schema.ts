@@ -27,3 +27,4 @@ export const userSchema = z.object({
 export const userSearchResponseSchema = createPaginatedResponseSchema(userSchema);
 
 export type UserSearchQuery = z.infer<typeof userSearchQuerySchema>;
+export type UserSearchResponse = z.infer<typeof userSearchResponseSchema>;

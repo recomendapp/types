@@ -51,3 +51,4 @@ export const movieSchema = z.object({
 export const movieSearchResponseSchema = createPaginatedResponseSchema(movieSchema);
 
 export type MovieSearchQuery = z.infer<typeof movieSearchQuerySchema>;
+export type MovieSearchResponse = z.infer<typeof movieSearchResponseSchema>;

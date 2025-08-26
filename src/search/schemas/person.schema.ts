@@ -30,3 +30,4 @@ export const personSchema = z.object({
 export const personSearchResponseSchema = createPaginatedResponseSchema(personSchema);
 
 export type PersonSearchQuery = z.infer<typeof personSearchQuerySchema>;
+export type PersonSearchResponse = z.infer<typeof personSearchResponseSchema>;

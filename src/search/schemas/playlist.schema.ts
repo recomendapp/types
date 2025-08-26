@@ -26,3 +26,4 @@ export const playlistSchema = z.object({
 export const playlistSearchResponseSchema = createPaginatedResponseSchema(playlistSchema);
 
 export type PlaylistSearchQuery = z.infer<typeof playlistSearchQuerySchema>;
+export type PlaylistSearchResponse = z.infer<typeof playlistSearchResponseSchema>;

@@ -27,3 +27,4 @@ export const allSearchResponseSchema = z.object({
 });
 
 export type AllSearchQuery = z.infer<typeof allSearchQuerySchema>;
+export type AllSearchResponse = z.infer<typeof allSearchResponseSchema>;
