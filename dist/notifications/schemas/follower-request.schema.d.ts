@@ -5,7 +5,27 @@ export declare const followerRequestSchema: z.ZodObject<{
     sender: z.ZodObject<{
         username: z.ZodString;
         avatar: z.ZodOptional<z.ZodNullable<z.ZodString>>;
-    }, z.core.$strip>;
-}, z.core.$strip>;
+    }, "strip", z.ZodTypeAny, {
+        username: string;
+        avatar?: string | null | undefined;
+    }, {
+        username: string;
+        avatar?: string | null | undefined;
+    }>;
+}, "strip", z.ZodTypeAny, {
+    id: number;
+    type: "follower_created" | "follower_accepted" | "follower_request" | "friend_created" | "reco_sent" | "reco_completed";
+    sender: {
+        username: string;
+        avatar?: string | null | undefined;
+    };
+}, {
+    id: number;
+    type: "follower_created" | "follower_accepted" | "follower_request" | "friend_created" | "reco_sent" | "reco_completed";
+    sender: {
+        username: string;
+        avatar?: string | null | undefined;
+    };
+}>;
 export type FollowerRequestPayload = z.infer<typeof followerRequestSchema>;
 //# sourceMappingURL=follower-request.schema.d.ts.map

@@ -1,10 +1,21 @@
 import { z } from 'zod';
 export declare const userSearchQuerySchema: z.ZodObject<{
     query: z.ZodString;
+} & {
     exclude_ids: z.ZodOptional<z.ZodString>;
-    page: z.ZodDefault<z.ZodCoercedNumber<unknown>>;
-    per_page: z.ZodDefault<z.ZodCoercedNumber<unknown>>;
-}, z.core.$strip>;
+    page: z.ZodDefault<z.ZodNumber>;
+    per_page: z.ZodDefault<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    page: number;
+    per_page: number;
+    query: string;
+    exclude_ids?: string | undefined;
+}, {
+    query: string;
+    page?: number | undefined;
+    per_page?: number | undefined;
+    exclude_ids?: string | undefined;
+}>;
 export declare const userSearchResponseSchema: z.ZodObject<{
     data: z.ZodArray<z.ZodObject<{
         id: z.ZodString;
@@ -22,13 +33,103 @@ export declare const userSearchResponseSchema: z.ZodObject<{
         premium: z.ZodBoolean;
         language: z.ZodString;
         private: z.ZodBoolean;
-    }, z.core.$strip>>;
+    }, "strip", z.ZodTypeAny, {
+        id: string;
+        created_at: string;
+        username: string;
+        username_updated_at: string | null;
+        full_name: string;
+        bio: string | null;
+        avatar_url: string | null;
+        website: string | null;
+        favorite_color: string | null;
+        followers_count: number;
+        following_count: number;
+        background_url: string | null;
+        premium: boolean;
+        language: string;
+        private: boolean;
+    }, {
+        id: string;
+        created_at: string;
+        username: string;
+        username_updated_at: string | null;
+        full_name: string;
+        bio: string | null;
+        avatar_url: string | null;
+        website: string | null;
+        favorite_color: string | null;
+        followers_count: number;
+        following_count: number;
+        background_url: string | null;
+        premium: boolean;
+        language: string;
+        private: boolean;
+    }>, "many">;
     pagination: z.ZodObject<{
         total_results: z.ZodNumber;
         total_pages: z.ZodNumber;
         current_page: z.ZodNumber;
         per_page: z.ZodNumber;
-    }, z.core.$strip>;
-}, z.core.$strip>;
+    }, "strip", z.ZodTypeAny, {
+        per_page: number;
+        total_results: number;
+        total_pages: number;
+        current_page: number;
+    }, {
+        per_page: number;
+        total_results: number;
+        total_pages: number;
+        current_page: number;
+    }>;
+}, "strip", z.ZodTypeAny, {
+    data: {
+        id: string;
+        created_at: string;
+        username: string;
+        username_updated_at: string | null;
+        full_name: string;
+        bio: string | null;
+        avatar_url: string | null;
+        website: string | null;
+        favorite_color: string | null;
+        followers_count: number;
+        following_count: number;
+        background_url: string | null;
+        premium: boolean;
+        language: string;
+        private: boolean;
+    }[];
+    pagination: {
+        per_page: number;
+        total_results: number;
+        total_pages: number;
+        current_page: number;
+    };
+}, {
+    data: {
+        id: string;
+        created_at: string;
+        username: string;
+        username_updated_at: string | null;
+        full_name: string;
+        bio: string | null;
+        avatar_url: string | null;
+        website: string | null;
+        favorite_color: string | null;
+        followers_count: number;
+        following_count: number;
+        background_url: string | null;
+        premium: boolean;
+        language: string;
+        private: boolean;
+    }[];
+    pagination: {
+        per_page: number;
+        total_results: number;
+        total_pages: number;
+        current_page: number;
+    };
+}>;
 export type UserSearchQuery = z.infer<typeof userSearchQuerySchema>;
 //# sourceMappingURL=user.schema.d.ts.map
