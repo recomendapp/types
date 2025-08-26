@@ -1,6 +1,6 @@
 
 import { Database as PostgresSchema } from './__generated__/type.db';
-import { FeedType, JSONContent, MediaMovie, MediaPerson, MediaTvSeries, Playlist, PlaylistLike, User, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
+import { FeedType, JSONContent, MediaMovie, MediaPerson, MediaTvSeries, PlaylistLike, User, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
 
 type PostgresTables = PostgresSchema['public']['Tables'];
 type PostgresViews = PostgresSchema['public']['Views'];

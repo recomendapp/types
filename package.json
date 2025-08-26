@@ -1,0 +1,27 @@
+{
+  "name": "@recomendapp/types",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/recomendapp/types.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/recomendapp/types/issues"
+  },
+  "homepage": "https://github.com/recomendapp/types#readme",
+  "dependencies": {
+    "zod": "^4.1.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
