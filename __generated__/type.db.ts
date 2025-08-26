@@ -4207,6 +4207,68 @@ export type Database = {
           },
         ]
       }
+      media_movie_backdrops: {
+        Row: {
+          aspect_ratio: number | null
+          backdrop_url: string | null
+          file_path: string | null
+          height: number | null
+          id: number | null
+          iso_639_1: string | null
+          movie_id: number | null
+          type: Database["public"]["Enums"]["image_type"] | null
+          vote_average: number | null
+          vote_count: number | null
+          width: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tmdb_movie_images_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "media_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tmdb_movie_images_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      media_movie_posters: {
+        Row: {
+          aspect_ratio: number | null
+          file_path: string | null
+          height: number | null
+          id: number | null
+          iso_639_1: string | null
+          movie_id: number | null
+          poster_url: string | null
+          type: Database["public"]["Enums"]["image_type"] | null
+          vote_average: number | null
+          vote_count: number | null
+          width: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tmdb_movie_images_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "media_movie"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tmdb_movie_images_movie_id_fkey"
+            columns: ["movie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_movie"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       media_person: {
         Row: {
           biography: string | null
