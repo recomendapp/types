@@ -8,4 +8,3 @@ export declare const followerAcceptedSchema: z.ZodObject<{
     }, z.core.$strip>;
 }, z.core.$strip>;
 export type FollowerAcceptedPayload = z.infer<typeof followerAcceptedSchema>;
-//# sourceMappingURL=follower-accepted.schema.d.ts.map

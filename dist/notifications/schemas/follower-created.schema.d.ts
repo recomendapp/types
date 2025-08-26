@@ -8,4 +8,3 @@ export declare const followerCreatedSchema: z.ZodObject<{
     }, z.core.$strip>;
 }, z.core.$strip>;
 export type FollowerCreatedPayload = z.infer<typeof followerCreatedSchema>;
-//# sourceMappingURL=follower-created.schema.d.ts.map

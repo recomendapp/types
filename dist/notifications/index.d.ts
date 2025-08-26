@@ -6,4 +6,3 @@ import { RecoSentPayload } from './schemas/reco-sent.schema';
 import { RecoCompletedPayload } from './schemas/reco-completed.schema';
 export type { FollowerAcceptedPayload, FollowerRequestPayload, FollowerCreatedPayload, FriendCreatedPayload, RecoSentPayload, RecoCompletedPayload, };
 export type NotificationPayload = FollowerAcceptedPayload & FollowerRequestPayload & FollowerCreatedPayload & FriendCreatedPayload & RecoSentPayload & RecoCompletedPayload;
-//# sourceMappingURL=index.d.ts.map

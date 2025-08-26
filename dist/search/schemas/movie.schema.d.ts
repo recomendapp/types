@@ -22,4 +22,3 @@ export declare const movieSearchResponseSchema: z.ZodObject<{
     }, z.core.$strip>;
 }, z.core.$strip>;
 export type MovieSearchQuery = z.infer<typeof movieSearchQuerySchema>;
-//# sourceMappingURL=movie.schema.d.ts.map

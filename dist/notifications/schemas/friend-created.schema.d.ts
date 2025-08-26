@@ -8,4 +8,3 @@ export declare const friendCreatedSchema: z.ZodObject<{
     }, z.core.$strip>;
 }, z.core.$strip>;
 export type FriendCreatedPayload = z.infer<typeof friendCreatedSchema>;
-//# sourceMappingURL=friend-created.schema.d.ts.map
