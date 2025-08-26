@@ -32,3 +32,4 @@ export declare const playlistSearchResponseSchema: z.ZodObject<{
     }, z.core.$strip>;
 }, z.core.$strip>;
 export type PlaylistSearchQuery = z.infer<typeof playlistSearchQuerySchema>;
+//# sourceMappingURL=playlist.schema.d.ts.map

@@ -14,3 +14,4 @@ export declare const recoSentSchema: z.ZodObject<{
     }, z.core.$strip>;
 }, z.core.$strip>;
 export type RecoSentPayload = z.infer<typeof recoSentSchema>;
+//# sourceMappingURL=reco-sent.schema.d.ts.map

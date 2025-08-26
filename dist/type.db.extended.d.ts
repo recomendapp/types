@@ -166,3 +166,4 @@ export type TableRow<T extends TableName> = Database['public']['Tables'][T]['Row
 export type ViewName = keyof Database['public']['Views'];
 export type ViewRow<View extends ViewName> = Database['public']['Views'][View]['Row'];
 export {};
+//# sourceMappingURL=type.db.extended.d.ts.map

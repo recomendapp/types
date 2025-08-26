@@ -19,3 +19,4 @@ export declare function createPaginatedResponseSchema<T extends z.ZodType>(itemS
     }, z.core.$strip>;
 }, z.core.$strip>;
 export type Pagination = z.infer<typeof paginationResponseSchema>;
+//# sourceMappingURL=pagination.schema.d.ts.map

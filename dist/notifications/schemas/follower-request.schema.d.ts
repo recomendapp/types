@@ -8,3 +8,4 @@ export declare const followerRequestSchema: z.ZodObject<{
     }, z.core.$strip>;
 }, z.core.$strip>;
 export type FollowerRequestPayload = z.infer<typeof followerRequestSchema>;
+//# sourceMappingURL=follower-request.schema.d.ts.map

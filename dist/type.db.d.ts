@@ -142,3 +142,4 @@ export type JSONContent = {
 };
 export type EventType = Database['public']['Enums']['eventType'];
 export type ViewType = 'grid' | 'list';
+//# sourceMappingURL=type.db.d.ts.map

@@ -31,3 +31,4 @@ export declare const userSearchResponseSchema: z.ZodObject<{
     }, z.core.$strip>;
 }, z.core.$strip>;
 export type UserSearchQuery = z.infer<typeof userSearchQuerySchema>;
+//# sourceMappingURL=user.schema.d.ts.map
