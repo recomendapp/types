@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { querySchema, createPaginatedResponseSchema, paginationQuerySchema } from './common';
+import { userSchema } from './user.schema';
 
 const sortableFieldsSchema = z.object({
 	sort_by: z.enum(['created_at', 'updated_at', 'likes_count', 'items_count']).default('created_at'),
@@ -22,6 +23,7 @@ export const playlistSchema = z.object({
 	saved_count: z.number().min(0),
 	likes_count: z.number().min(0),
 	type: z.enum(['movie', 'tv_series']),
+	user: userSchema,
 });
 
 export const playlistSearchResponseSchema = createPaginatedResponseSchema(playlistSchema);
