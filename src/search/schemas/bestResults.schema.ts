@@ -6,7 +6,10 @@ import { personSchema, personSearchResponseSchema } from "./person.schema";
 import { userSchema, userSearchResponseSchema } from "./user.schema";
 import { playlistSchema, playlistSearchResponseSchema } from "./playlist.schema";
 
-export const bestResultsSearchQuerySchema = querySchema;
+export const bestResultsSearchQuerySchema = querySchema
+	.extend(z.object({
+		results_per_type: z.coerce.number().int().min(1).max(50).default(10)
+	}).shape);
 
 export const bestResultsSearchResponseSchema = z.object({
 	bestResult: z.object({
