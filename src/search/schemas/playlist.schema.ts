@@ -21,6 +21,7 @@ export const playlistSchema = z.object({
 	items_count: z.number().min(0),
 	saved_count: z.number().min(0),
 	likes_count: z.number().min(0),
+	type: z.enum(['movie', 'tv_series']),
 });
 
 export const playlistSearchResponseSchema = createPaginatedResponseSchema(playlistSchema);
