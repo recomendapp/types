@@ -4378,6 +4378,37 @@ export type Database = {
           },
         ]
       }
+      media_tv_series_backdrops: {
+        Row: {
+          aspect_ratio: number | null
+          backdrop_url: string | null
+          file_path: string | null
+          height: number | null
+          id: number | null
+          iso_639_1: string | null
+          serie_id: number | null
+          type: Database["public"]["Enums"]["image_type"] | null
+          vote_average: number | null
+          vote_count: number | null
+          width: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tmdb_tv_series_images_serie_id_fkey"
+            columns: ["serie_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tmdb_tv_series_images_serie_id_fkey"
+            columns: ["serie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       media_tv_series_episodes: {
         Row: {
           air_date: string | null
@@ -4428,6 +4459,37 @@ export type Database = {
           },
           {
             foreignKeyName: "tmdb_tv_series_seasons_serie_id_fkey"
+            columns: ["serie_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      media_tv_series_posters: {
+        Row: {
+          aspect_ratio: number | null
+          file_path: string | null
+          height: number | null
+          id: number | null
+          iso_639_1: string | null
+          poster_url: string | null
+          serie_id: number | null
+          type: Database["public"]["Enums"]["image_type"] | null
+          vote_average: number | null
+          vote_count: number | null
+          width: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tmdb_tv_series_images_serie_id_fkey"
+            columns: ["serie_id"]
+            isOneToOne: false
+            referencedRelation: "media_tv_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tmdb_tv_series_images_serie_id_fkey"
             columns: ["serie_id"]
             isOneToOne: false
             referencedRelation: "tmdb_tv_series"

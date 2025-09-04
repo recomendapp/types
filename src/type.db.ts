@@ -32,6 +32,12 @@ export type MediaMoviePerson = Database['public']['Tables']['tmdb_movie_credits'
 };
 export type MediaMovieAggregateCredits = Database['public']['Views']['media_movie_aggregate_credits']['Row'] & {
 };
+export type MediaMoviePoster = Database['public']['Views']['media_movie_posters']['Row'] & {
+	movie?: MediaMovie;
+};
+export type MediaMovieBackdrop = Database['public']['Views']['media_movie_backdrops']['Row'] & {
+	movie?: MediaMovie;
+};
 export type MediaTvSeries = Database['public']['Views']['media_tv_series']['Row'] & {
 	videos?: Database['public']['Tables']['tmdb_tv_series_videos']['Row'][];
 	production_countries?: Database['public']['Tables']['tmdb_tv_series_production_countries']['Row'][];
@@ -42,6 +48,12 @@ export type MediaTvSeries = Database['public']['Views']['media_tv_series']['Row'
 };
 export type MediaTvSeriesPerson = Database['public']['Tables']['tmdb_tv_series_credits']['Row'] & {
 	person?: MediaPerson;
+};
+export type MediaTvSeriesPoster = Database['public']['Views']['media_tv_series_posters']['Row'] & {
+	tv_series?: MediaTvSeries;
+};
+export type MediaTvSeriesBackdrop = Database['public']['Views']['media_tv_series_backdrops']['Row'] & {
+	tv_series?: MediaTvSeries;
 };
 export type MediaTvSeriesSeason = Database['public']['Views']['media_tv_series_seasons']['Row'] & {
 	episodes?: MediaTvSeriesEpisode[];
