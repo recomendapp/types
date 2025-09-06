@@ -16,9 +16,8 @@ export type {
 
 export type NotificationPayload = 
 	FollowerAcceptedPayload
-	& FollowerRequestPayload
-	& FollowerCreatedPayload
-	& FriendCreatedPayload
-	& RecoSentPayload
-	& RecoCompletedPayload;
-
+	| FollowerRequestPayload
+	| FollowerCreatedPayload
+	| FriendCreatedPayload
+	| RecoSentPayload
+	| RecoCompletedPayload;

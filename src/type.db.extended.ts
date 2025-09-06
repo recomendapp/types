@@ -1,6 +1,6 @@
 
 import { Database as PostgresSchema } from './__generated__/type.db';
-import { FeedType, JSONContent, MediaMovie, MediaPerson, MediaTvSeries, PlaylistLike, User, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
+import { FeedType, JSONContent, MediaMovie, MediaPerson, MediaTvSeries, PlaylistLike, User, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserRecosMovie, UserRecosTvSeries, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
 
 type PostgresTables = PostgresSchema['public']['Tables'];
 type PostgresViews = PostgresSchema['public']['Views'];
@@ -157,6 +157,21 @@ type FunctionExtensions = {
         activity_type: 'review_tv_series_like';
         content: UserReviewTvSeriesLike;
       }
+  ),
+  get_notifications: (
+    {
+      type: 'reco_sent_movie';
+      content: UserRecosMovie;
+    } | {
+      type: 'reco_sent_tv_series';
+      content: UserRecosTvSeries;
+    } | {
+      type: 'reco_completed_movie';
+      content: UserRecosMovie;
+    } | {
+      type: 'reco_completed_tv_series';
+      content: UserRecosTvSeries;
+    }
   )
 };
 // <END>

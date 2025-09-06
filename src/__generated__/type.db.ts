@@ -5371,6 +5371,16 @@ export type Database = {
           content: Json
         }[]
       }
+      get_notifications: {
+        Args: {
+          notif_list: Json
+        }
+        Returns: {
+          notification_id: number
+          type: Database["public"]["Enums"]["notification_type"]
+          content: Json
+        }[]
+      }
       importer_best_match_movie: {
         Args: {
           lang: string

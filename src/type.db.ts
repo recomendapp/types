@@ -88,8 +88,18 @@ export type UserRecosType = Database['public']['Enums']['user_recos_type'];
 export type UserRecosMovieAggregated = Database['public']['Views']['user_recos_movie_aggregated']['Row'] & {
 	movie?: MediaMovie;
 };
+export type UserRecosMovie = Database['public']['Tables']['user_recos_movie']['Row'] & {
+	movie?: MediaMovie;
+	sender?: User;
+	receiver?: User;
+};
 export type UserRecosTvSeriesAggregated = Database['public']['Views']['user_recos_tv_series_aggregated']['Row'] & {
 	tv_series?: MediaTvSeries;
+};
+export type UserRecosTvSeries = Database['public']['Tables']['user_recos_tv_series']['Row'] & {
+	tv_series?: MediaTvSeries;
+	sender?: User;
+	receiver?: User;
 };
 export type UserRecosAggregated = Database['public']['Views']['user_recos_aggregated']['Row'] & {
 };
