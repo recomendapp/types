@@ -634,6 +634,66 @@ export type Database = {
         }
         Relationships: []
       }
+      subscriptions: {
+        Row: {
+          created_at: string
+          environment: string
+          expires_at: string | null
+          id: string
+          original_transaction_id: string | null
+          product_id: string
+          purchased_at: string
+          status: string
+          store: string
+          transaction_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          environment: string
+          expires_at?: string | null
+          id?: string
+          original_transaction_id?: string | null
+          product_id: string
+          purchased_at: string
+          status: string
+          store: string
+          transaction_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          environment?: string
+          expires_at?: string | null
+          id?: string
+          original_transaction_id?: string | null
+          product_id?: string
+          purchased_at?: string
+          status?: string
+          store?: string
+          transaction_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sync_logs: {
         Row: {
           created_at: string
@@ -5480,6 +5540,10 @@ export type Database = {
         | "friend_created"
         | "reco_sent"
         | "reco_completed"
+        | "reco_sent_movie"
+        | "reco_sent_tv_series"
+        | "reco_completed_movie"
+        | "reco_completed_tv_series"
       notifications_device_type: "web" | "ios" | "android" | "windows" | "macos"
       notifications_provider: "fcm" | "expo" | "apns"
       playlists_type: "movie" | "tv_series"

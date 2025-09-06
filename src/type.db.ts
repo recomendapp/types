@@ -188,7 +188,11 @@ export const NotificationTypeEnum = {
   follower_accepted: 'follower_accepted',
   follower_request: 'follower_request',
   reco_sent: 'reco_sent',
+  reco_sent_movie: 'reco_sent_movie',
+  reco_sent_tv_series: 'reco_sent_tv_series',
   reco_completed: 'reco_completed',
+  reco_completed_movie: 'reco_completed_movie',
+  reco_completed_tv_series: 'reco_completed_tv_series',
   friend_created: 'friend_created',
 } as const;
 /* -------------------------------------------------------------------------- */

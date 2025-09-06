@@ -3,7 +3,7 @@ import { NotificationTypeEnum } from '../../type.db';
 import { defaultSchema } from './common';
 
 export const recoCompletedSchema = defaultSchema.extend({
-	type: z.literal(NotificationTypeEnum.reco_completed).describe('Type of notification'),
+	type: z.enum([NotificationTypeEnum.reco_completed_movie, NotificationTypeEnum.reco_completed_tv_series]).describe('Type of notification'),
 	receiver: z.object({
 		id: z.string().uuid().describe('The ID of the user who received the reco'),
 		username: z.string().describe('The user who received the reco'),
