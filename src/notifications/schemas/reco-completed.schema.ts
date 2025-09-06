@@ -5,6 +5,7 @@ export const recoCompletedSchema = z.object({
 	id: z.number().int().describe('The ID of the reco'),
 	type: z.literal(NotificationTypeEnum.reco_completed).describe('Type of notification'),
 	receiver: z.object({
+		id: z.string().uuid().describe('The ID of the user who received the reco'),
 		username: z.string().describe('The user who received the reco'),
 		avatar: z
 			.string()

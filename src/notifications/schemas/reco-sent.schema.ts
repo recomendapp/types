@@ -5,6 +5,7 @@ export const recoSentSchema = z.object({
 	id: z.number().int().describe('The ID of the reco'),
 	type: z.literal(NotificationTypeEnum.reco_sent).describe('Type of notification'),
 	sender: z.object({
+		id: z.string().uuid().describe('The ID of the user who sent the reco'),
 		username: z.string().describe('The user who sent the reco'),
 		avatar: z
 			.string()
