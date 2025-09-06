@@ -1,6 +1,6 @@
 
 import { Database as PostgresSchema } from './__generated__/type.db';
-import { FeedType, JSONContent, MediaMovie, MediaPerson, MediaTvSeries, PlaylistLike, User, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserRecosMovie, UserRecosTvSeries, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
+import { FeedType, JSONContent, MediaMovie, MediaPerson, MediaTvSeries, PlaylistLike, User, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserFollower, UserFriend, UserRecosMovie, UserRecosTvSeries, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
 
 type PostgresTables = PostgresSchema['public']['Tables'];
 type PostgresViews = PostgresSchema['public']['Views'];
@@ -171,6 +171,18 @@ type FunctionExtensions = {
     } | {
       type: 'reco_completed_tv_series';
       content: UserRecosTvSeries;
+    } | {
+      type: 'follower_request';
+      content: UserFollower;
+    } | {
+      type: 'follower_accepted';
+      content: UserFollower;
+    } | {
+      type: 'follower_created';
+      content: UserFollower;
+    } | {
+      type: 'friend_created';
+      content: UserFriend;
     }
   )
 };
