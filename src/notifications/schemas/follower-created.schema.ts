@@ -1,8 +1,8 @@
 import * as z from 'zod';
 import { NotificationTypeEnum } from '../../type.db';
+import { defaultSchema } from './common';
 
-export const followerCreatedSchema = z.object({
-	id: z.number().int().describe('The ID of the follower record'),
+export const followerCreatedSchema = defaultSchema.extend({
 	type: z.literal(NotificationTypeEnum.follower_created).describe('Type of notification'),
 	sender: z.object({
 		id: z.string().uuid().describe('The ID of the user who followed'),

@@ -183,14 +183,14 @@ export type Products = Database['public']['Tables']['products']['Row'] & {
 
 /* ------------------------------ NOTIFICATIONS ----------------------------- */
 export type NotificationType = Database['public']['Enums']['notification_type'];
-export const NotificationTypeEnum: Record<NotificationType, NotificationType> = {
+export const NotificationTypeEnum = {
   follower_created: 'follower_created',
   follower_accepted: 'follower_accepted',
   follower_request: 'follower_request',
   reco_sent: 'reco_sent',
   reco_completed: 'reco_completed',
   friend_created: 'friend_created',
-};
+} as const;
 /* -------------------------------------------------------------------------- */
 
 /* --------------------------------- OTHERS --------------------------------- */

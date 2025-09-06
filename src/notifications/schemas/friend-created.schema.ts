@@ -1,7 +1,8 @@
 import * as z from 'zod';
 import { NotificationTypeEnum } from '../../type.db';
+import { defaultSchema } from './common';
 
-export const friendCreatedSchema = z.object({
+export const friendCreatedSchema = defaultSchema.extend({
 	id: z.number().int().describe('The ID of the friend record'),
 	type: z.literal(NotificationTypeEnum.friend_created).describe('Type of notification'),
 	friend: z.object({
