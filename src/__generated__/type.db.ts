@@ -5376,7 +5376,7 @@ export type Database = {
           notif_list: Json
         }
         Returns: {
-          notification_id: number
+          notification_id: string
           type: Database["public"]["Enums"]["notification_type"]
           content: Json
         }[]
