@@ -195,6 +195,16 @@ type FunctionExtensions = {
         media: MediaTvSeries;
       }
   ),
+  get_widget_most_popular: (
+    | {
+        type: 'movie';
+        media: MediaMovie;
+      }
+    | {
+        type: 'tv_series';
+        media: MediaTvSeries;
+      }
+  ),
 };
 // <END>
 // ☝️ this is the only thing you edit

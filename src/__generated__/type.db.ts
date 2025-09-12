@@ -5320,6 +5320,14 @@ export type Database = {
         }
         Relationships: []
       }
+      widget_most_popular: {
+        Row: {
+          media_id: number | null
+          popularity: number | null
+          type: Database["public"]["Enums"]["user_recos_type"] | null
+        }
+        Relationships: []
+      }
       widget_most_recommended: {
         Row: {
           media_id: number | null
@@ -5378,6 +5386,15 @@ export type Database = {
           notification_id: string
           type: Database["public"]["Enums"]["notification_type"]
           content: Json
+        }[]
+      }
+      get_widget_most_popular: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          media_id: number
+          type: Database["public"]["Enums"]["user_recos_type"]
+          popularity: number
+          media: Json
         }[]
       }
       get_widget_most_recommended: {
