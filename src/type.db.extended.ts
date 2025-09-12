@@ -184,7 +184,17 @@ type FunctionExtensions = {
       type: 'friend_created';
       content: UserFriend;
     }
-  )
+  ),
+  get_widget_most_recommended: (
+    | {
+        type: 'movie';
+        media: MediaMovie;
+      }
+    | {
+        type: 'tv_series';
+        media: MediaTvSeries;
+      }
+  ),
 };
 // <END>
 // ☝️ this is the only thing you edit

@@ -5322,7 +5322,6 @@ export type Database = {
       }
       widget_most_recommended: {
         Row: {
-          media: Json | null
           media_id: number | null
           recommendation_count: number | null
           type: Database["public"]["Enums"]["user_recos_type"] | null
@@ -5379,6 +5378,15 @@ export type Database = {
           notification_id: string
           type: Database["public"]["Enums"]["notification_type"]
           content: Json
+        }[]
+      }
+      get_widget_most_recommended: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          media_id: number
+          type: Database["public"]["Enums"]["user_recos_type"]
+          recommendation_count: number
+          media: Json
         }[]
       }
       importer_best_match_movie: {
