@@ -158,6 +158,18 @@ type FunctionExtensions = {
         content: UserReviewTvSeriesLike;
       }
   ),
+  get_feed_cast_crew: {
+    person: MediaPerson;
+  } & (
+    | {
+        media_type: 'movie';
+        media: MediaMovie;
+      }
+    | {
+        media_type: 'tv_series';
+        media: MediaTvSeries;
+      }
+  ),
   get_notifications: (
     {
       type: 'reco_sent_movie';

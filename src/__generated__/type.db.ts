@@ -4188,6 +4188,17 @@ export type Database = {
         }
         Relationships: []
       }
+      media_combined_credits: {
+        Row: {
+          department: string | null
+          job: string | null
+          media_id: number | null
+          media_type: Database["public"]["Enums"]["media_type"] | null
+          person_id: number | null
+          ref_date: string | null
+        }
+        Relationships: []
+      }
       media_movie: {
         Row: {
           backdrop_path: string | null
@@ -4768,16 +4779,6 @@ export type Database = {
           username?: string | null
           visible?: never
           website?: string | null
-        }
-        Relationships: []
-      }
-      tmdb_combined_credits: {
-        Row: {
-          department: string | null
-          job: string | null
-          media_id: number | null
-          media_type: Database["public"]["Enums"]["media_type"] | null
-          person_id: number | null
         }
         Relationships: []
       }
@@ -5376,6 +5377,19 @@ export type Database = {
           created_at: string
           author: Json
           content: Json
+        }[]
+      }
+      get_feed_cast_crew: {
+        Args: {
+          page_limit?: number
+          page_offset?: number
+        }
+        Returns: {
+          person: Json
+          media: Json
+          type: Database["public"]["Enums"]["media_type"]
+          jobs: string[]
+          ref_date: string
         }[]
       }
       get_notifications: {
