@@ -5387,7 +5387,8 @@ export type Database = {
         Returns: {
           person: Json
           media: Json
-          type: Database["public"]["Enums"]["media_type"]
+          media_type: Database["public"]["Enums"]["media_type"]
+          media_id: number
           jobs: string[]
           ref_date: string
         }[]
