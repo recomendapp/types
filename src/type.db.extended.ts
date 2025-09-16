@@ -1,6 +1,6 @@
 
 import { Database as PostgresSchema } from './__generated__/type.db';
-import { FeedType, JSONContent, MediaMovie, MediaPerson, MediaTvSeries, PlaylistLike, User, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserFollower, UserFriend, UserRecosMovie, UserRecosTvSeries, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
+import { FeedType, JSONContent, MediaMovie, MediaPerson, MediaTvSeries, PlaylistLike, Profile, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserFollower, UserFriend, UserRecosMovie, UserRecosTvSeries, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
 
 type PostgresTables = PostgresSchema['public']['Tables'];
 type PostgresViews = PostgresSchema['public']['Views'];
@@ -41,7 +41,7 @@ type ViewExtensions = {
     id: number;
     type: UserActivityType;
     media: MediaMovie | MediaTvSeries;
-    user?: User;
+    user?: Profile;
     review?: UserReview | null;
   };
   /* -------------------------------------------------------------------------- */
@@ -57,21 +57,21 @@ type ViewExtensions = {
     type: UserRecosType;
     media: MediaMovie | MediaTvSeries;
     senders: {
-      user: User;
+      user: Profile;
       comment?: string | null;
       created_at: string;
     }[];
   },
   user_recos_movie_aggregated: {
     senders: {
-      user: User,
+      user: Profile,
       comment?: string | null,
       created_at: string,
     }[]
   };
   user_recos_tv_series_aggregated: {
     senders: {
-      user: User,
+      user: Profile,
       comment?: string | null,
       created_at: string,
     }[]
@@ -135,7 +135,7 @@ type ViewExtensions = {
 type FunctionExtensions = {
   get_feed: {
     activity_type: FeedType;
-    author: User;
+    author: Profile;
   } & (
     | {
         activity_type: 'activity_movie';
