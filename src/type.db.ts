@@ -8,12 +8,12 @@ export type User = (Database['public']['Tables']['user']['Row']) & {
 	subscriptions?: UserSubscriptions[] | any;
 };
 export type UserFriend = Database['public']['Tables']['user_friend']['Row'] & {
-	friend: User;
-	user: User;
+	friend: Profile;
+	user: Profile;
 };
 export type UserFollower = Database['public']['Tables']['user_follower']['Row'] & {
-	followee: User;
-	user: User;
+	followee: Profile;
+	user: Profile;
 };
 /* -------------------------------------------------------------------------- */
 
@@ -70,12 +70,12 @@ export type MediaPerson = Database['public']['Views']['media_person']['Row'] & {
 /* -------------------------------- ACTIVITY -------------------------------- */
 export type UserActivityType = Database['public']['Enums']['user_activity_type'];
 export type UserActivityMovie = Database['public']['Tables']['user_activities_movie']['Row'] & {
-	user?: User;
+	user?: Profile;
 	review?: UserReviewMovie | null;
 	movie?: MediaMovie;
 };
 export type UserActivityTvSeries = Database['public']['Tables']['user_activities_tv_series']['Row'] & {
-	user?: User;
+	user?: Profile;
 	review?: UserReviewTvSeries | null;
 	tv_series?: MediaTvSeries;
 };
@@ -90,16 +90,16 @@ export type UserRecosMovieAggregated = Database['public']['Views']['user_recos_m
 };
 export type UserRecosMovie = Database['public']['Tables']['user_recos_movie']['Row'] & {
 	movie?: MediaMovie;
-	sender?: User;
-	receiver?: User;
+	sender?: Profile;
+	receiver?: Profile;
 };
 export type UserRecosTvSeriesAggregated = Database['public']['Views']['user_recos_tv_series_aggregated']['Row'] & {
 	tv_series?: MediaTvSeries;
 };
 export type UserRecosTvSeries = Database['public']['Tables']['user_recos_tv_series']['Row'] & {
 	tv_series?: MediaTvSeries;
-	sender?: User;
-	receiver?: User;
+	sender?: Profile;
+	receiver?: Profile;
 };
 export type UserRecosAggregated = Database['public']['Views']['user_recos_aggregated']['Row'] & {
 };
@@ -136,27 +136,27 @@ export type UserReview = UserReviewMovie | UserReviewTvSeries;
 
 /* -------------------------------- PLAYLIST -------------------------------- */
 export type Playlist = Database['public']['Tables']['playlists']['Row'] & {
-	user?: User;
+	user?: Profile;
 	guests?: PlaylistGuest[];
 	items?: PlaylistItemMovie[] | PlaylistItemTvSeries[];
 };
 export type PlaylistItemMovie = Database['public']['Tables']['playlist_items_movie']['Row'] & {
 	movie?: MediaMovie;
 	playlist?: Playlist;
-	user?: User;
+	user?: Profile;
 };
 export type PlaylistItemTvSeries = Database['public']['Tables']['playlist_items_tv_series']['Row'] & {
 	tv_series?: MediaTvSeries;
 	playlist?: Playlist;
-	user?: User;
+	user?: Profile;
 };
 export type PlaylistGuest = Database['public']['Tables']['playlist_guests']['Row'] & {
-	user?: User;
+	user?: Profile;
 	playlist?: Playlist;
 };
 export type PlaylistLike = Database['public']['Tables']['playlists_likes']['Row'] & {
 	playlist?: Playlist;
-	user?: User;
+	user?: Profile;
 };
 export type PlaylistSource = 'personal' | 'saved';
 export type PlaylistType = Database['public']['Enums']['playlists_type'];
