@@ -20,6 +20,7 @@ export const userSchema = z.object({
 	premium: z.boolean(),
 	private: z.boolean(),
 	visible: z.boolean(),
+	created_at: z.string(),
 });
 
 export const userSearchResponseSchema = createPaginatedResponseSchema(userSchema);

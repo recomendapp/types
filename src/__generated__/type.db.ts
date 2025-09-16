@@ -4739,6 +4739,7 @@ export type Database = {
           avatar_url: string | null
           background_url: string | null
           bio: string | null
+          created_at: string | null
           favorite_color: string | null
           followers_count: number | null
           following_count: number | null
@@ -4754,6 +4755,7 @@ export type Database = {
           avatar_url?: string | null
           background_url?: string | null
           bio?: string | null
+          created_at?: string | null
           favorite_color?: string | null
           followers_count?: number | null
           following_count?: number | null
@@ -4769,6 +4771,7 @@ export type Database = {
           avatar_url?: string | null
           background_url?: string | null
           bio?: string | null
+          created_at?: string | null
           favorite_color?: string | null
           followers_count?: number | null
           following_count?: number | null
