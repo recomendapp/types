@@ -6,3 +6,4 @@ export * from './utils';
 export * from './notifications';
 export * from './search';
 export * from './enums';
+export * from './edge-functions';

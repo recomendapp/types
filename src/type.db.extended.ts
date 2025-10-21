@@ -117,6 +117,10 @@ type ViewExtensions = {
   media_person: {
     id: number,
   },
+  media_genre: {
+    id: number,
+    name: string,
+  }
   /* -------------------------------------------------------------------------- */
 
   /* --------------------------------- WIDGETS -------------------------------- */
@@ -217,6 +221,10 @@ type FunctionExtensions = {
         media: MediaTvSeries;
       }
   ),
+  // Explore
+  get_explore_in_view: {
+    movie: MediaMovie;
+  }
 };
 // <END>
 // ☝️ this is the only thing you edit
