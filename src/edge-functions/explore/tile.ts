@@ -19,6 +19,7 @@ export type ExploreTile = {
 				release_date: MediaMovie['release_date'];
 				runtime: MediaMovie['runtime'];
 				genres: MediaMovie['genres'];
+				genresIds: number[];
 			};
 		};
 	}[];
