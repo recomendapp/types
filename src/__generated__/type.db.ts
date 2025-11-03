@@ -3259,6 +3259,27 @@ export type Database = {
           },
         ]
       }
+      ui_backgrounds: {
+        Row: {
+          id: string
+          media_id: number
+          media_type: Database["public"]["Enums"]["media_type"]
+          url: string
+        }
+        Insert: {
+          id?: string
+          media_id: number
+          media_type: Database["public"]["Enums"]["media_type"]
+          url: string
+        }
+        Update: {
+          id?: string
+          media_id?: number
+          media_type?: Database["public"]["Enums"]["media_type"]
+          url?: string
+        }
+        Relationships: []
+      }
       user: {
         Row: {
           avatar_url: string | null
@@ -5481,6 +5502,16 @@ export type Database = {
           content: Json
           notification_id: string
           type: Database["public"]["Enums"]["notification_type"]
+        }[]
+      }
+      get_ui_backgrounds: {
+        Args: never
+        Returns: {
+          id: string
+          media: Json
+          media_id: number
+          media_type: Database["public"]["Enums"]["media_type"]
+          url: string
         }[]
       }
       get_widget_most_popular: {

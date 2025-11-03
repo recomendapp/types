@@ -221,6 +221,9 @@ type FunctionExtensions = {
         media: MediaTvSeries;
       }
   ),
+  get_ui_backgrounds: {
+    media: MediaMovie | MediaTvSeries;
+  },
   // Explore
   get_explore_in_view: {
     movie: MediaMovie;
