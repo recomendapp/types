@@ -9,21 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      customers: {
-        Row: {
-          id: string
-          stripe_customer_id: string | null
-        }
-        Insert: {
-          id: string
-          stripe_customer_id?: string | null
-        }
-        Update: {
-          id?: string
-          stripe_customer_id?: string | null
-        }
-        Relationships: []
-      }
       explore: {
         Row: {
           id: number
@@ -618,86 +603,6 @@ export type Database = {
           },
         ]
       }
-      prices: {
-        Row: {
-          active: boolean | null
-          currency: string | null
-          description: string | null
-          id: string
-          interval: Database["public"]["Enums"]["pricing_plan_interval"] | null
-          interval_count: number | null
-          metadata: Json | null
-          product_id: string | null
-          trial_period_days: number | null
-          type: Database["public"]["Enums"]["pricing_type"] | null
-          unit_amount: number | null
-        }
-        Insert: {
-          active?: boolean | null
-          currency?: string | null
-          description?: string | null
-          id: string
-          interval?: Database["public"]["Enums"]["pricing_plan_interval"] | null
-          interval_count?: number | null
-          metadata?: Json | null
-          product_id?: string | null
-          trial_period_days?: number | null
-          type?: Database["public"]["Enums"]["pricing_type"] | null
-          unit_amount?: number | null
-        }
-        Update: {
-          active?: boolean | null
-          currency?: string | null
-          description?: string | null
-          id?: string
-          interval?: Database["public"]["Enums"]["pricing_plan_interval"] | null
-          interval_count?: number | null
-          metadata?: Json | null
-          product_id?: string | null
-          trial_period_days?: number | null
-          type?: Database["public"]["Enums"]["pricing_type"] | null
-          unit_amount?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "prices_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "products"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      products: {
-        Row: {
-          active: boolean | null
-          description: string | null
-          features: Json | null
-          id: string
-          image: string | null
-          metadata: Json | null
-          name: string | null
-        }
-        Insert: {
-          active?: boolean | null
-          description?: string | null
-          features?: Json | null
-          id: string
-          image?: string | null
-          metadata?: Json | null
-          name?: string | null
-        }
-        Update: {
-          active?: boolean | null
-          description?: string | null
-          features?: Json | null
-          id?: string
-          image?: string | null
-          metadata?: Json | null
-          name?: string | null
-        }
-        Relationships: []
-      }
       subscriptions: {
         Row: {
           created_at: string
@@ -842,7 +747,7 @@ export type Database = {
             foreignKeyName: "tmdb_collection_image_collection_fkey"
             columns: ["collection"]
             isOneToOne: false
-            referencedRelation: "collection"
+            referencedRelation: "media_collection"
             referencedColumns: ["id"]
           },
           {
@@ -887,7 +792,7 @@ export type Database = {
             foreignKeyName: "tmdb_collection_translation_collection_fkey"
             columns: ["collection"]
             isOneToOne: false
-            referencedRelation: "collection"
+            referencedRelation: "media_collection"
             referencedColumns: ["id"]
           },
           {
@@ -932,7 +837,7 @@ export type Database = {
             foreignKeyName: "tmdb_company_parent_company_fkey"
             columns: ["parent_company"]
             isOneToOne: false
-            referencedRelation: "company"
+            referencedRelation: "media_company"
             referencedColumns: ["id"]
           },
           {
@@ -965,7 +870,7 @@ export type Database = {
             foreignKeyName: "tmdb_company_alternative_name_company_fkey"
             columns: ["company"]
             isOneToOne: false
-            referencedRelation: "company"
+            referencedRelation: "media_company"
             referencedColumns: ["id"]
           },
           {
@@ -1016,7 +921,7 @@ export type Database = {
             foreignKeyName: "tmdb_company_image_company_fkey"
             columns: ["company"]
             isOneToOne: false
-            referencedRelation: "company"
+            referencedRelation: "media_company"
             referencedColumns: ["id"]
           },
           {
@@ -1246,7 +1151,7 @@ export type Database = {
             foreignKeyName: "tmdb_movie_collection_fkey"
             columns: ["belongs_to_collection"]
             isOneToOne: false
-            referencedRelation: "collection"
+            referencedRelation: "media_collection"
             referencedColumns: ["id"]
           },
           {
@@ -1339,20 +1244,6 @@ export type Database = {
             columns: ["person_id"]
             isOneToOne: false
             referencedRelation: "media_person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person_full"
             referencedColumns: ["id"]
           },
           {
@@ -1602,7 +1493,7 @@ export type Database = {
             foreignKeyName: "tmdb_movie_production_company_id_fkey"
             columns: ["company_id"]
             isOneToOne: false
-            referencedRelation: "company"
+            referencedRelation: "media_company"
             referencedColumns: ["id"]
           },
           {
@@ -2096,20 +1987,6 @@ export type Database = {
             foreignKeyName: "tmdb_person_also_known_as_person_fkey"
             columns: ["person"]
             isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_person_also_known_as_person_fkey"
-            columns: ["person"]
-            isOneToOne: false
-            referencedRelation: "person_full"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_person_also_known_as_person_fkey"
-            columns: ["person"]
-            isOneToOne: false
             referencedRelation: "tmdb_person"
             referencedColumns: ["id"]
           },
@@ -2140,20 +2017,6 @@ export type Database = {
             columns: ["person"]
             isOneToOne: false
             referencedRelation: "media_person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_person_external_id_person_fkey"
-            columns: ["person"]
-            isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_person_external_id_person_fkey"
-            columns: ["person"]
-            isOneToOne: false
-            referencedRelation: "person_full"
             referencedColumns: ["id"]
           },
           {
@@ -2208,20 +2071,6 @@ export type Database = {
             foreignKeyName: "tmdb_person_image_person_fkey"
             columns: ["person"]
             isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_person_image_person_fkey"
-            columns: ["person"]
-            isOneToOne: false
-            referencedRelation: "person_full"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_person_image_person_fkey"
-            columns: ["person"]
-            isOneToOne: false
             referencedRelation: "tmdb_person"
             referencedColumns: ["id"]
           },
@@ -2255,20 +2104,6 @@ export type Database = {
             columns: ["person"]
             isOneToOne: false
             referencedRelation: "media_person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_person_translation_person_fkey"
-            columns: ["person"]
-            isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_person_translation_person_fkey"
-            columns: ["person"]
-            isOneToOne: false
-            referencedRelation: "person_full"
             referencedColumns: ["id"]
           },
           {
@@ -2449,20 +2284,6 @@ export type Database = {
             foreignKeyName: "tmdb_tv_series_credits_person_id_fkey"
             columns: ["person_id"]
             isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_tv_series_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person_full"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_tv_series_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
             referencedRelation: "tmdb_person"
             referencedColumns: ["id"]
           },
@@ -2538,13 +2359,6 @@ export type Database = {
             columns: ["season_id"]
             isOneToOne: false
             referencedRelation: "tmdb_tv_series_seasons"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_tv_series_episodes_season_id_fkey"
-            columns: ["season_id"]
-            isOneToOne: false
-            referencedRelation: "tv_season"
             referencedColumns: ["id"]
           },
         ]
@@ -2907,7 +2721,7 @@ export type Database = {
             foreignKeyName: "tmdb_tv_series_production_companies_company_id_fkey"
             columns: ["company_id"]
             isOneToOne: false
-            referencedRelation: "company"
+            referencedRelation: "media_company"
             referencedColumns: ["id"]
           },
           {
@@ -3056,13 +2870,6 @@ export type Database = {
             referencedRelation: "tmdb_tv_series_seasons"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "tmdb_tv_series_seasons_credits_season_id_fkey"
-            columns: ["season_id"]
-            isOneToOne: false
-            referencedRelation: "tv_season"
-            referencedColumns: ["id"]
-          },
         ]
       }
       tmdb_tv_series_seasons_translations: {
@@ -3103,13 +2910,6 @@ export type Database = {
             columns: ["season_id"]
             isOneToOne: false
             referencedRelation: "tmdb_tv_series_seasons"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_tv_series_seasons_translations_season_id_fkey"
-            columns: ["season_id"]
-            isOneToOne: false
-            referencedRelation: "tv_season"
             referencedColumns: ["id"]
           },
         ]
@@ -3718,20 +3518,6 @@ export type Database = {
             foreignKeyName: "user_person_follower_person_id_fkey"
             columns: ["person_id"]
             isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_person_follower_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person_full"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_person_follower_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
             referencedRelation: "tmdb_person"
             referencedColumns: ["id"]
           },
@@ -4079,82 +3865,6 @@ export type Database = {
           },
         ]
       }
-      user_subscriptions: {
-        Row: {
-          cancel_at: string | null
-          cancel_at_period_end: boolean | null
-          canceled_at: string | null
-          created: string
-          current_period_end: string
-          current_period_start: string
-          ended_at: string | null
-          id: string
-          metadata: Json | null
-          price_id: string | null
-          quantity: number | null
-          status: Database["public"]["Enums"]["subscription_status"] | null
-          trial_end: string | null
-          trial_start: string | null
-          user_id: string
-        }
-        Insert: {
-          cancel_at?: string | null
-          cancel_at_period_end?: boolean | null
-          canceled_at?: string | null
-          created?: string
-          current_period_end?: string
-          current_period_start?: string
-          ended_at?: string | null
-          id: string
-          metadata?: Json | null
-          price_id?: string | null
-          quantity?: number | null
-          status?: Database["public"]["Enums"]["subscription_status"] | null
-          trial_end?: string | null
-          trial_start?: string | null
-          user_id: string
-        }
-        Update: {
-          cancel_at?: string | null
-          cancel_at_period_end?: boolean | null
-          canceled_at?: string | null
-          created?: string
-          current_period_end?: string
-          current_period_start?: string
-          ended_at?: string | null
-          id?: string
-          metadata?: Json | null
-          price_id?: string | null
-          quantity?: number | null
-          status?: Database["public"]["Enums"]["subscription_status"] | null
-          trial_end?: string | null
-          trial_start?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_subscriptions_price_id_fkey"
-            columns: ["price_id"]
-            isOneToOne: false
-            referencedRelation: "prices"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_subscriptions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profile"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_subscriptions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       user_watchlists_movie: {
         Row: {
           comment: string | null
@@ -4269,7 +3979,7 @@ export type Database = {
       }
     }
     Views: {
-      collection: {
+      media_collection: {
         Row: {
           backdrop_path: string | null
           homepage: string | null
@@ -4277,20 +3987,6 @@ export type Database = {
           name: string | null
           overview: string | null
           poster_path: string | null
-        }
-        Relationships: []
-      }
-      company: {
-        Row: {
-          alternative_names: Json | null
-          description: string | null
-          headquarters: string | null
-          homepage: string | null
-          id: number | null
-          logo_path: string | null
-          name: string | null
-          origin_country: string | null
-          parent_company: Json | null
         }
         Relationships: []
       }
@@ -4302,6 +3998,20 @@ export type Database = {
           media_type: Database["public"]["Enums"]["media_type"] | null
           person_id: number | null
           ref_date: string | null
+        }
+        Relationships: []
+      }
+      media_company: {
+        Row: {
+          alternative_names: Json | null
+          description: string | null
+          headquarters: string | null
+          homepage: string | null
+          id: number | null
+          logo_path: string | null
+          name: string | null
+          origin_country: string | null
+          parent_company: Json | null
         }
         Relationships: []
       }
@@ -4366,20 +4076,6 @@ export type Database = {
             columns: ["person_id"]
             isOneToOne: false
             referencedRelation: "media_person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person_full"
             referencedColumns: ["id"]
           },
           {
@@ -4481,6 +4177,29 @@ export type Database = {
           },
         ]
       }
+      media_person_jobs: {
+        Row: {
+          department: string | null
+          jobs: string[] | null
+          person_id: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "media_person"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "tmdb_person"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       media_tv_series: {
         Row: {
           backdrop_path: string | null
@@ -4523,20 +4242,6 @@ export type Database = {
             columns: ["person_id"]
             isOneToOne: false
             referencedRelation: "media_person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_tv_series_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_tv_series_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person_full"
             referencedColumns: ["id"]
           },
           {
@@ -4628,13 +4333,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "tmdb_tv_series_episodes_season_id_fkey"
-            columns: ["season_id"]
-            isOneToOne: false
-            referencedRelation: "tv_season"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "tmdb_tv_series_seasons_serie_id_fkey"
             columns: ["serie_id"]
             isOneToOne: false
@@ -4707,111 +4405,6 @@ export type Database = {
             columns: ["serie_id"]
             isOneToOne: false
             referencedRelation: "tmdb_tv_series"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      person: {
-        Row: {
-          gender: number | null
-          id: number | null
-          known_for_department: string | null
-          name: string | null
-          popularity: number | null
-          profile_path: string | null
-          slug: string | null
-        }
-        Insert: {
-          gender?: number | null
-          id?: number | null
-          known_for_department?: string | null
-          name?: string | null
-          popularity?: number | null
-          profile_path?: never
-          slug?: never
-        }
-        Update: {
-          gender?: number | null
-          id?: number | null
-          known_for_department?: string | null
-          name?: string | null
-          popularity?: number | null
-          profile_path?: never
-          slug?: never
-        }
-        Relationships: [
-          {
-            foreignKeyName: "tmdb_person_gender_fkey"
-            columns: ["gender"]
-            isOneToOne: false
-            referencedRelation: "tmdb_gender"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      person_full: {
-        Row: {
-          adult: boolean | null
-          also_known_as: Json | null
-          backdrop_path: string | null
-          biography: string | null
-          birthday: string | null
-          deathday: string | null
-          departments: string[] | null
-          gender: number | null
-          homepage: string | null
-          id: number | null
-          imdb_id: string | null
-          known_for_department: string | null
-          name: string | null
-          place_of_birth: string | null
-          popularity: number | null
-          profile_path: string | null
-          slug: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "tmdb_person_gender_fkey"
-            columns: ["gender"]
-            isOneToOne: false
-            referencedRelation: "tmdb_gender"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      person_jobs: {
-        Row: {
-          department: string | null
-          jobs: string[] | null
-          person_id: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "media_person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person_full"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "tmdb_person"
             referencedColumns: ["id"]
           },
         ]
@@ -4946,20 +4539,6 @@ export type Database = {
             foreignKeyName: "tmdb_movie_credits_person_id_fkey"
             columns: ["person_id"]
             isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person_full"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
             referencedRelation: "tmdb_person"
             referencedColumns: ["id"]
           },
@@ -4982,49 +4561,7 @@ export type Database = {
             foreignKeyName: "tmdb_movie_credits_person_id_fkey"
             columns: ["person_id"]
             isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person_full"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
             referencedRelation: "tmdb_person"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      tv_season: {
-        Row: {
-          id: number | null
-          name: string | null
-          overview: string | null
-          poster_path: string | null
-          season_number: number | null
-          serie_id: number | null
-          vote_average: number | null
-          vote_count: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "tmdb_tv_series_seasons_serie_id_fkey"
-            columns: ["serie_id"]
-            isOneToOne: false
-            referencedRelation: "media_tv_series"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_tv_series_seasons_serie_id_fkey"
-            columns: ["serie_id"]
-            isOneToOne: false
-            referencedRelation: "tmdb_tv_series"
             referencedColumns: ["id"]
           },
         ]
@@ -5206,20 +4743,6 @@ export type Database = {
             columns: ["person_id"]
             isOneToOne: false
             referencedRelation: "media_person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "tmdb_movie_credits_person_id_fkey"
-            columns: ["person_id"]
-            isOneToOne: false
-            referencedRelation: "person_full"
             referencedColumns: ["id"]
           },
           {
