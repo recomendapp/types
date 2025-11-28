@@ -5,7 +5,7 @@ import { Json as JsonGenerated } from "./__generated__/type.db";
 export type Profile = Database['public']['Views']['profile']['Row'] & {
 };
 export type User = (Database['public']['Tables']['user']['Row']) & {
-	subscriptions?: UserSubscriptions[] | any;
+	subscriptions?: UserSubscriptions[];
 };
 export type UserFriend = Database['public']['Tables']['user_friend']['Row'] & {
 	friend: Profile;
@@ -174,21 +174,7 @@ export type UserFeedCastCrew = Database['public']['Views']['user_feed_cast_crew'
 /* -------------------------------------------------------------------------- */
 
 /* ------------------------------ SUBSCRIPTIONS ----------------------------- */
-export type UserSubscriptions = Database['public']['Tables']['user_subscriptions']['Row'] & {
-	prices?: Prices[];
-};
-/* -------------------------------------------------------------------------- */
-
-/* --------------------------------- PRICES --------------------------------- */
-export type Prices = Database['public']['Tables']['prices']['Row'] & {
-	product?: Products;
-};
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------- PRODUCTS -------------------------------- */
-export type Products = Database['public']['Tables']['products']['Row'] & {
-	prices?: Prices[];
-};
+export type UserSubscriptions = Database['public']['Tables']['subscriptions']['Row'] & {};
 /* -------------------------------------------------------------------------- */
 
 /* ------------------------------ NOTIFICATIONS ----------------------------- */
