@@ -24,7 +24,7 @@ export type MediaMovie = Database['public']['Views']['media_movie']['Row'] & {
 	videos?: Database['public']['Tables']['tmdb_movie_videos']['Row'][];
 	production_countries?: Database['public']['Tables']['tmdb_movie_production_countries']['Row'][];
 	spoken_languages?: Database['public']['Tables']['tmdb_movie_spoken_languages']['Row'][];
-	cast?: MediaMoviePerson[];
+	cast?: MediaMovieCasting[] | null;
 };
 export type MediaMoviePerson = Database['public']['Tables']['tmdb_movie_credits']['Row'] & {
 	person?: MediaPerson;
@@ -38,11 +38,15 @@ export type MediaMoviePoster = Database['public']['Views']['media_movie_posters'
 export type MediaMovieBackdrop = Database['public']['Views']['media_movie_backdrops']['Row'] & {
 	movie?: MediaMovie;
 };
+export type MediaMovieCasting = Database['public']['Views']['media_movie_casting']['Row'] & {
+	person?: MediaPerson;
+};
+
 export type MediaTvSeries = Database['public']['Views']['media_tv_series']['Row'] & {
 	videos?: Database['public']['Tables']['tmdb_tv_series_videos']['Row'][];
 	production_countries?: Database['public']['Tables']['tmdb_tv_series_production_countries']['Row'][];
 	spoken_languages?: Database['public']['Tables']['tmdb_tv_series_spoken_languages']['Row'][];
-	cast?: MediaTvSeriesPerson[];
+	cast?: MediaTvSeriesCasting[];
 	seasons?: MediaTvSeriesSeason[];
 	specials?: MediaTvSeriesSeason[];
 };
@@ -63,6 +67,10 @@ export type MediaTvSeriesEpisode = Database['public']['Views']['media_tv_series_
 };
 export type MediaTvSeriesAggregateCredits = Database['public']['Views']['media_tv_series_aggregate_credits']['Row'] & {
 };
+export type MediaTvSeriesCasting = Database['public']['Views']['media_tv_series_casting']['Row'] & {
+	person?: MediaPerson;
+};
+
 export type MediaPerson = Database['public']['Views']['media_person']['Row'] & {
 };
 /* -------------------------------------------------------------------------- */
