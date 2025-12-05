@@ -1,19 +1,6 @@
 import { Database as PostgresSchema } from './__generated__/type.db';
 import { FeedType, MediaMovie, MediaPerson, MediaTvSeries, PlaylistLike, Profile, UserActivityMovie, UserActivityTvSeries, UserActivityType, UserFollower, UserFriend, UserRecosMovie, UserRecosTvSeries, UserRecosType, UserReview, UserReviewMovieLike, UserReviewTvSeriesLike, UserWatchlistType } from './type.db';
 
-export type JSONContent = {
-  [key: string]: any;
-  type?: string;
-  attrs?: Record<string, any>;
-  content?: JSONContent[];
-  marks?: {
-    type: string;
-    attrs?: Record<string, any>;
-    [key: string]: any;
-  }[];
-  text?: string;
-};
-
 type PostgresTables = PostgresSchema['public']['Tables'];
 type PostgresViews = PostgresSchema['public']['Views'];
 type PostgresFunctions = PostgresSchema['public']['Functions'];
@@ -44,12 +31,6 @@ type TableExtensions = {
     };
   };
   **/
-  user_reviews_movie: {
-    body: JSONContent;
-  };
-  user_reviews_tv_series: {
-    body: JSONContent;
-  };
 };
 
 type ViewExtensions = {

@@ -3771,30 +3771,33 @@ export type Database = {
       }
       user_reviews_movie: {
         Row: {
-          body: Json
+          body: string
           comments_count: number
           created_at: string
           id: number
+          is_sanitized: boolean
           likes_count: number
           title: string | null
           updated_at: string
           views_count: number
         }
         Insert: {
-          body: Json
+          body: string
           comments_count?: number
           created_at?: string
           id?: number
+          is_sanitized?: boolean
           likes_count?: number
           title?: string | null
           updated_at?: string
           views_count?: number
         }
         Update: {
-          body?: Json
+          body?: string
           comments_count?: number
           created_at?: string
           id?: number
+          is_sanitized?: boolean
           likes_count?: number
           title?: string | null
           updated_at?: string
@@ -3819,30 +3822,33 @@ export type Database = {
       }
       user_reviews_tv_series: {
         Row: {
-          body: Json
+          body: string
           comments_count: number
           created_at: string
           id: number
+          is_sanitized: boolean
           likes_count: number
           title: string | null
           updated_at: string
           views_count: number
         }
         Insert: {
-          body: Json
+          body: string
           comments_count?: number
           created_at?: string
           id?: number
+          is_sanitized?: boolean
           likes_count?: number
           title?: string | null
           updated_at?: string
           views_count?: number
         }
         Update: {
-          body?: Json
+          body?: string
           comments_count?: number
           created_at?: string
           id?: number
+          is_sanitized?: boolean
           likes_count?: number
           title?: string | null
           updated_at?: string

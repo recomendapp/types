@@ -204,19 +204,6 @@ export const NotificationTypeEnum = {
 /* --------------------------------- OTHERS --------------------------------- */
 export type Json = JsonGenerated;
 
-export type JSONContent = {
-    [key: string]: any;
-    type?: string;
-    attrs?: Record<string, any>;
-    content?: JSONContent[];
-    marks?: {
-        type: string;
-        attrs?: Record<string, any>;
-        [key: string]: any;
-    }[];
-    text?: string;
-};
-
 export type EventType = Database['public']['Enums']['eventType'];
 
 export type ViewType = 'grid' | 'list';
