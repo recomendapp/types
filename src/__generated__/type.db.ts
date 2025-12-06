@@ -3775,7 +3775,6 @@ export type Database = {
           comments_count: number
           created_at: string
           id: number
-          is_sanitized: boolean
           likes_count: number
           title: string | null
           updated_at: string
@@ -3786,7 +3785,6 @@ export type Database = {
           comments_count?: number
           created_at?: string
           id?: number
-          is_sanitized?: boolean
           likes_count?: number
           title?: string | null
           updated_at?: string
@@ -3797,7 +3795,6 @@ export type Database = {
           comments_count?: number
           created_at?: string
           id?: number
-          is_sanitized?: boolean
           likes_count?: number
           title?: string | null
           updated_at?: string
@@ -3826,7 +3823,6 @@ export type Database = {
           comments_count: number
           created_at: string
           id: number
-          is_sanitized: boolean
           likes_count: number
           title: string | null
           updated_at: string
@@ -3837,7 +3833,6 @@ export type Database = {
           comments_count?: number
           created_at?: string
           id?: number
-          is_sanitized?: boolean
           likes_count?: number
           title?: string | null
           updated_at?: string
@@ -3848,7 +3843,6 @@ export type Database = {
           comments_count?: number
           created_at?: string
           id?: number
-          is_sanitized?: boolean
           likes_count?: number
           title?: string | null
           updated_at?: string
