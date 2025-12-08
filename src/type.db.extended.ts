@@ -17,7 +17,9 @@ type PostgresFunctions = PostgresSchema['public']['Functions'];
 type ViewToTableMapping = {
   profile: PostgresTables['user']['Row'];
   media_movie: PostgresTables['tmdb_movie']['Row'];
+  media_movie_full: PostgresTables['tmdb_movie']['Row'];
   media_tv_series: PostgresTables['tmdb_tv_series']['Row'];
+  media_tv_series_full: PostgresTables['tmdb_tv_series']['Row'];
   media_person: PostgresTables['tmdb_person']['Row'];
 };
 
@@ -91,6 +93,14 @@ type ViewExtensions = {
       name: string;
     }[];
   };
+  media_movie_full: {
+    directors?: MediaPerson[];
+    genres?: {
+      id: number;
+      name: string;
+    }[];
+    trailers?: PostgresTables['tmdb_movie_videos']['Row'][];
+  };
   media_movie_aggregate_credits: {
     movie: MediaMovie;
     credits: {
@@ -105,6 +115,14 @@ type ViewExtensions = {
       id: number;
       name: string;
     }[];
+  };
+  media_tv_series_full: {
+    created_by?: MediaPerson[];
+    genres?: {
+      id: number;
+      name: string;
+    }[];
+    trailers?: PostgresTables['tmdb_tv_series_videos']['Row'][];
   };
   media_tv_series_aggregate_credits: {
     tv_series: MediaTvSeries;

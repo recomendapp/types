@@ -20,12 +20,13 @@ export type UserFollower = Database['public']['Tables']['user_follower']['Row'] 
 /* ---------------------------------- MEDIA --------------------------------- */
 export type MediaType = Database['public']['Enums']['media_type'];
 
-export type MediaMovie = Database['public']['Views']['media_movie']['Row'] & {
-	videos?: Database['public']['Tables']['tmdb_movie_videos']['Row'][];
-	production_countries?: Database['public']['Tables']['tmdb_movie_production_countries']['Row'][];
-	spoken_languages?: Database['public']['Tables']['tmdb_movie_spoken_languages']['Row'][];
-	cast?: MediaMovieCasting[] | null;
-};
+export type MediaMovie =
+	Database['public']['Views']['media_movie']['Row']
+	& Database['public']['Views']['media_movie_full']['Row'] & {
+		production_countries?: Database['public']['Tables']['tmdb_movie_production_countries']['Row'][];
+		spoken_languages?: Database['public']['Tables']['tmdb_movie_spoken_languages']['Row'][];
+		cast?: MediaMovieCasting[] | null;
+	};
 export type MediaMoviePerson = Database['public']['Tables']['tmdb_movie_credits']['Row'] & {
 	person?: MediaPerson;
 	role?: Database['public']['Tables']['tmdb_movie_roles']['Row'];
@@ -42,14 +43,15 @@ export type MediaMovieCasting = Database['public']['Views']['media_movie_casting
 	person?: MediaPerson;
 };
 
-export type MediaTvSeries = Database['public']['Views']['media_tv_series']['Row'] & {
-	videos?: Database['public']['Tables']['tmdb_tv_series_videos']['Row'][];
-	production_countries?: Database['public']['Tables']['tmdb_tv_series_production_countries']['Row'][];
-	spoken_languages?: Database['public']['Tables']['tmdb_tv_series_spoken_languages']['Row'][];
-	cast?: MediaTvSeriesCasting[];
-	seasons?: MediaTvSeriesSeason[];
-	specials?: MediaTvSeriesSeason[];
-};
+export type MediaTvSeries =
+	Database['public']['Views']['media_tv_series']['Row']
+	& Database['public']['Views']['media_tv_series_full']['Row'] & {
+		production_countries?: Database['public']['Tables']['tmdb_tv_series_production_countries']['Row'][];
+		spoken_languages?: Database['public']['Tables']['tmdb_tv_series_spoken_languages']['Row'][];
+		cast?: MediaTvSeriesCasting[];
+		seasons?: MediaTvSeriesSeason[];
+		specials?: MediaTvSeriesSeason[];
+	};
 export type MediaTvSeriesPerson = Database['public']['Tables']['tmdb_tv_series_credits']['Row'] & {
 	person?: MediaPerson;
 };
