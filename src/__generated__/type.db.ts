@@ -5551,7 +5551,11 @@ export type Database = {
         Returns: Json
       }
       get_feed: {
-        Args: { page_limit: number; page_offset: number }
+        Args: {
+          page_limit: number
+          page_offset: number
+          target_user_ids?: string[]
+        }
         Returns: {
           activity_type: Database["public"]["Enums"]["feed_type"]
           author: Json
