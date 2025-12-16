@@ -20,7 +20,10 @@ type ViewToTableMapping = {
   media_movie_full: PostgresTables['tmdb_movie']['Row'];
   media_tv_series: PostgresTables['tmdb_tv_series']['Row'];
   media_tv_series_full: PostgresTables['tmdb_tv_series']['Row'];
+  media_tv_series_seasons: PostgresTables['tmdb_tv_series_seasons']['Row'];
+  media_tv_series_episodes: PostgresTables['tmdb_tv_series_episodes']['Row'];
   media_person: PostgresTables['tmdb_person']['Row'];
+  media_person_jobs: PostgresTables['tmdb_movie_credits']['Row'];
 };
 
 type TableExtensions = {

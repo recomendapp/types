@@ -4416,6 +4416,7 @@ export type Database = {
         Row: {
           credits: Json | null
           movie_id: number | null
+          order: number | null
           person_id: number | null
         }
         Relationships: [
