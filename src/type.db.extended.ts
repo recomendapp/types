@@ -24,6 +24,7 @@ type ViewToTableMapping = {
   media_tv_series_episodes: PostgresTables['tmdb_tv_series_episodes']['Row'];
   media_person: PostgresTables['tmdb_person']['Row'];
   media_person_jobs: PostgresTables['tmdb_movie_credits']['Row'];
+  playlists_friends: PostgresTables['playlists']['Row'];
 };
 
 type TableExtensions = {
@@ -65,14 +66,21 @@ type ViewExtensions = {
   /* -------------------------------------------------------------------------- */
   /* ---------------------------------- RECOS --------------------------------- */
   user_recos_aggregated: {
-    type: UserRecosType;
-    media: MediaMovie | MediaTvSeries;
     senders: {
       user: Profile;
       comment?: string | null;
       created_at: string;
     }[];
-  };
+  } & (
+    | {
+        type: 'movie';
+        media: MediaMovie;
+      }
+    | {
+        type: 'tv_series';
+        media: MediaTvSeries;
+      }
+  );
   user_recos_movie_aggregated: {
     senders: {
       user: Profile;

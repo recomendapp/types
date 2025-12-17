@@ -4904,6 +4904,7 @@ export type Database = {
           private: boolean | null
           saved_count: number | null
           title: string | null
+          type: Database["public"]["Enums"]["playlists_type"] | null
           updated_at: string | null
           user_id: string | null
         }
