@@ -138,13 +138,9 @@ type ViewExtensions = {
   media_tv_series_aggregate_credits: {
     tv_series: MediaTvSeries;
     credits: {
+      job: string;
       credit_id: string;
       department: string;
-      job: string;
-      character: string | null;
-      episode_count: number;
-      season_id: number;
-      season_number: number;
     }[];
   };
   /* -------------------------------------------------------------------------- */

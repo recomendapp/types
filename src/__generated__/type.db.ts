@@ -2386,27 +2386,21 @@ export type Database = {
       }
       tmdb_tv_series_credits: {
         Row: {
-          character: string | null
           department: string
-          episode_count: number | null
           id: string
           job: string
           person_id: number
           serie_id: number
         }
         Insert: {
-          character?: string | null
           department: string
-          episode_count?: number | null
           id: string
           job: string
           person_id: number
           serie_id: number
         }
         Update: {
-          character?: string | null
           department?: string
-          episode_count?: number | null
           id?: string
           job?: string
           person_id?: number
@@ -2993,6 +2987,35 @@ export type Database = {
             columns: ["serie_id"]
             isOneToOne: false
             referencedRelation: "tmdb_tv_series"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tmdb_tv_series_roles: {
+        Row: {
+          character: string | null
+          credit_id: string
+          episode_count: number | null
+          order: number
+        }
+        Insert: {
+          character?: string | null
+          credit_id: string
+          episode_count?: number | null
+          order: number
+        }
+        Update: {
+          character?: string | null
+          credit_id?: string
+          episode_count?: number | null
+          order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tmdb_tv_series_roles_credit_id_fkey"
+            columns: ["credit_id"]
+            isOneToOne: true
+            referencedRelation: "tmdb_tv_series_credits"
             referencedColumns: ["id"]
           },
         ]
@@ -4607,7 +4630,6 @@ export type Database = {
       media_tv_series_aggregate_credits: {
         Row: {
           credits: Json | null
-          last_appearance_date: string | null
           person_id: number | null
           serie_id: number | null
         }
@@ -4690,6 +4712,7 @@ export type Database = {
       media_tv_series_casting: {
         Row: {
           credits: Json | null
+          order: number | null
           person_id: number | null
           serie_id: number | null
         }
