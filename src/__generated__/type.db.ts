@@ -4630,6 +4630,7 @@ export type Database = {
       media_tv_series_aggregate_credits: {
         Row: {
           credits: Json | null
+          last_appearance_date: string | null
           person_id: number | null
           serie_id: number | null
         }

@@ -141,6 +141,8 @@ type ViewExtensions = {
       job: string;
       credit_id: string;
       department: string;
+      season_id: number;
+      season_number: number;
     }[];
   };
   /* -------------------------------------------------------------------------- */
